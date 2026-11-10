@@ -1,0 +1,64 @@
+site_name: Repeater registration and discovery
+site_url: https://hamlink-canada.github.io/apt-rpt-docs/
+repo_url: https://github.com/Hamlink-Canada/apt-rpt-docs
+edit_uri: edit/main/docs/
+site_description: Deployment and operation of repeater registration and DNS services
+theme:
+  name: mkdocs
+  color_mode: auto
+  user_color_mode_toggle: true
+  navigation_depth: 3
+plugins:
+  - search
+markdown_extensions:
+  - tables
+  - fenced_code
+  - admonition
+validation:
+  links:
+    not_found: warn
+    anchors: warn
+nav:
+  - Start here: index.md
+  - Deployment plan: getting-started.md
+  - Architecture: architecture.md
+  - Shared configuration: configuration.md
+  - Authentication: authentication.md
+  - DNS directory:
+      - Overview: projects/dns/index.md
+      - Requirements and deployment: projects/dns/deployment.md
+      - Configuration: projects/dns/configuration.md
+      - Operation and troubleshooting: projects/dns/operations.md
+      - Protocol and behavior: projects/dns/protocol.md
+      - Development: projects/dns/development.md
+  - HTTP registrar:
+      - Overview: projects/http/index.md
+      - Requirements and deployment: projects/http/deployment.md
+      - Configuration: projects/http/configuration.md
+      - Operation and troubleshooting: projects/http/operations.md
+      - Protocol and behavior: projects/http/protocol.md
+      - Authentication and limits: projects/http/authentication.md
+      - Development: projects/http/development.md
+  - IAX registrar:
+      - Overview: projects/iax/index.md
+      - Requirements and deployment: projects/iax/deployment.md
+      - Configuration: projects/iax/configuration.md
+      - Operation and troubleshooting: projects/iax/operations.md
+      - Protocol and behavior: projects/iax/protocol.md
+      - Authentication and limits: projects/iax/authentication.md
+      - Development: projects/iax/development.md
+  - Shared protobuf library:
+      - Overview: projects/protobuf/index.md
+      - Requirements and deployment: projects/protobuf/deployment.md
+      - Configuration: projects/protobuf/configuration.md
+      - Operation and troubleshooting: projects/protobuf/operations.md
+      - Development: projects/protobuf/development.md
+  - Glossary: glossary.md
+  - Maintainers:
+      - Documentation and publishing: maintainers/documentation.md
+      - Agreed project design: maintainers/design-review.md
+      - Validation evidence: maintainers/validation.md
+      - Release review: maintainers/release-review.md
+      - Decisions:
+          - Shared schema dependency: decisions/0001-shared-schema-dependency.md
+          - Local verification and credential lookup: decisions/0002-local-authentication-with-credential-lookup.md
