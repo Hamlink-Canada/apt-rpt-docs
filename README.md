@@ -1,7 +1,8 @@
 # Repeater registration and discovery documentation
 
 This repository builds the operator documentation as a GitHub Pages site. It covers
-`dnsserver`, `pyHTTP-Register`, `pyIAX-Register`, and `rpt_protobuf`, with separate
+`Register-DNS_Server`, `Register-pyHTTP`, `Register-pyIAX`, `rpt_protobuf`,
+`Register-Central_Auth`, and `pyCommon`, with separate
 pages for deployment, configuration, operation, and development.
 
 The intended site URL is <https://hamlink-canada.github.io/apt-rpt-docs/>. Publication

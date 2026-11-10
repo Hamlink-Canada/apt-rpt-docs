@@ -11,8 +11,8 @@ For gRPC configure `RPT_AUTH__BACKEND=grpc`, `RPT_GRPC__TARGET`, and a service t
 (`RPT_GRPC__TOKEN`) or both `RPT_GRPC__CLIENT_CERT` and `RPT_GRPC__CLIENT_KEY`.
 `RPT_GRPC__CA` selects a custom CA; otherwise system roots are used. Server hostname
 verification stays enabled. Development-only insecure transport requires both
-`RPT_ENVIRONMENT=development` and `RPT_GRPC__INSECURE=true`. The production central
-credential server is a future project. It must authenticate registrars and authorize
+`RPT_ENVIRONMENT=development` and `RPT_GRPC__INSECURE=true`. The [central credential service](../central-auth/index.md) is implemented for review;
+its first release remains pending. It must authenticate registrars and authorize
 the scope of credential lookup; TLS by itself does not grant lookup permission.
 
 Successful credential lookups use a thread-safe per-process LRU cache, default 4096

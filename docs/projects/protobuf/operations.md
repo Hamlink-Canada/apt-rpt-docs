@@ -36,5 +36,5 @@ required; the server must enforce credential lookup scope. Tokens use
 `authorization: Bearer …` metadata. Never put passwords in logs or errors.
 
 HTTP password verification and IAX MD5 challenge-response stay in their respective
-registrars. The central production server is a future project. See the
+registrars. The central service is implemented for review, with its initial release pending. See the
 [authentication overview](../../authentication.md) for cache and outage behavior.
