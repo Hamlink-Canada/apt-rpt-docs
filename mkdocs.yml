@@ -47,6 +47,18 @@ nav:
       - Protocol and behavior: projects/iax/protocol.md
       - Authentication and limits: projects/iax/authentication.md
       - Development: projects/iax/development.md
+  - Central credential service:
+      - Overview: projects/central-auth/index.md
+      - Deployment: projects/central-auth/deployment.md
+      - Configuration: projects/central-auth/configuration.md
+      - Operation and health: projects/central-auth/operations.md
+      - Backend modules: projects/central-auth/backends.md
+      - Development: projects/central-auth/development.md
+  - Shared Python models:
+      - Overview: projects/common/index.md
+      - Credential model: projects/common/model.md
+      - Migrations: projects/common/migrations.md
+      - Development: projects/common/development.md
   - Shared protobuf library:
       - Overview: projects/protobuf/index.md
       - Requirements and deployment: projects/protobuf/deployment.md

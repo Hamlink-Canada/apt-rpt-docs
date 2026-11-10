@@ -18,8 +18,7 @@ To mount your own files at `/config`, set `RPT_CONFIG_DIR=/config`. Use plain TO
 without environment sections, and absolute paths for mounted credential files.
 
 The `grpc` backend retrieves passwords from a compatible central credential service;
-HTTP password verification still happens here. The production credential server is
-a separate, future project. Clients require verified TLS and a service token or
+HTTP password verification still happens here. The central credential service is implemented for review; its initial release is pending. Clients require verified TLS and a service token or
 client certificate. Successful lookups are cached for 60 seconds by default, with
 up to 4096 entries. During an outage, unexpired cached credentials still work;
 expired entries and new lookups fail closed. Password rotation can take up to the
@@ -81,7 +80,7 @@ and call-state settings in the common defaults do not control HTTP concurrency.
 
 ## Credential RPC connection
 
-The central production server is a future project. With a compatible server,
+The central credential service is implemented for review. With a deployed server,
 configure verified TLS and a service identity, for example:
 
 ```toml

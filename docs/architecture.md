@@ -15,8 +15,8 @@ Repeater -------------------UDP----> IAX registrar ----+            +--> DNS ins
 ```
 
 Both registrars use the same credential-provider contract. They read a local CSV
-at startup or retrieve passwords through gRPC. The production central credential
-server is a future project; it does not perform the IAX challenge exchange.
+at startup or retrieve passwords through gRPC. The [central credential service](projects/central-auth/index.md) is implemented for
+review; it does not perform the IAX challenge exchange.
 
 ## Dependencies and boundaries
 

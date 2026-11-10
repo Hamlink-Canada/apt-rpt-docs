@@ -18,8 +18,8 @@ restrict host access.
 
 ## Central lookup
 
-A production central credential server is a future project. The client contract
-already exists in the shared library. Select `grpc` only when a compatible server
+The [central credential service](projects/central-auth/index.md) is implemented for
+review, with its initial image release pending. The client contract is shared. Select `grpc` only when a compatible server
 is available. Use verified TLS with a service token or client certificate pair;
 the server must authorize each registrar's credential scope.
 

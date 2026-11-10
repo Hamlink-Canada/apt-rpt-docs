@@ -9,6 +9,8 @@ the DNS directory. The shared protobuf library gives them the same message forma
 | DNS directory | Reads registrations from Kafka and answers node lookups | [Deploy DNS](projects/dns/deployment.md) |
 | HTTP registrar | Accepts AllStarLink-compatible HTTPS registrations through a proxy | [Deploy HTTP](projects/http/deployment.md) |
 | IAX registrar | Accepts IAX2 MD5 challenge-response registrations over UDP | [Deploy IAX](projects/iax/deployment.md) |
+| Central Auth | Supplies credentials to trusted registrars | [Deploy Central Auth](projects/central-auth/deployment.md) |
+| Shared Python models | Defines credential records and migrations | [Understand pyCommon](projects/common/index.md) |
 | Shared protobuf library | Defines the registration messages and credential RPC | [Understand the library](projects/protobuf/index.md) |
 
 Start with [how the components connect](architecture.md) and the
@@ -17,5 +19,5 @@ configuration, operation, and development pages.
 
 These pages describe the current shared-protobuf cleanup working branches. Service
 image publication is still pending; build a local image until a versioned release
-is available. A production central credential server is planned separately. Local
-CSV credentials are supported now by both registrars.
+is available. Central Auth and the shared database models are now implemented for review; their
+initial release remains pending. Local CSV credentials remain supported by both registrars.

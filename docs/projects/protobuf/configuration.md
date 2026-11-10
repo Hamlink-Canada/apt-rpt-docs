@@ -16,11 +16,10 @@ messages are not supported by the updated services.
 
 The credential lookup interface allows an authorized registrar to retrieve a node's
 generated password. The registrar verifies the client's credentials locally; IAX
-challenge handling stays in the IAX project. A production central credential server
-is a separate, future project.
+challenge handling stays in the IAX project. The central credential service is implemented for review; its initial release is pending.
 
 Credential lookup requires an authenticated, authorized service connection. Clients
-use verified TLS with a service token or mutual TLS. The server must enforce which
-credentials each registrar may retrieve and never include passwords in logs or
+use verified TLS with a service token or mutual TLS. Every authenticated registrar may retrieve any node credential in its network;
+probe identities have health access only. Never include passwords in logs or
 error messages. Registrar caches can delay password changes until their configured
 TTL expires; see the service documentation when planning a rotation.
