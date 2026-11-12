@@ -18,9 +18,9 @@ restrict host access.
 
 ## Central lookup
 
-The [central credential service](projects/central-auth/index.md) is implemented for
-review, with its initial image release pending. The client contract is shared. Select `grpc` only when a compatible server
-is available. Use verified TLS with a service token or client certificate pair;
+The [central credential service](projects/central-auth/index.md) implements the
+server side of this lookup. Select `grpc` when a compatible server is deployed.
+Use verified TLS with a service token or client certificate pair;
 the server must authorize each registrar's credential scope.
 
 Successful lookups use a per-process LRU cache with a TTL: 4096 entries and 60 seconds

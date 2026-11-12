@@ -15,8 +15,7 @@ uv run --locked rpt-dns
 
 To build with local library changes, replace the remote build context above with
 `--build-context rpt_protobuf=../rpt_protobuf`. Standard Python installations use the
-full Git SHA declared in `pyproject.toml`. Update the dependency pin and lockfile
-together when adopting a new library revision; generated bindings belong in
+`main` branch declared in `pyproject.toml`. CI resolves it once per run; generated bindings belong in
 `rpt_protobuf`.
 
 CI checks Python 3.13 and 3.14 and is configured to build and check runtime imports

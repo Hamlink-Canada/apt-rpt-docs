@@ -27,8 +27,9 @@ consumer schemas into it. Unrelated D-Star definitions are outside these project
 ## Credential RPC
 
 `rpt.auth.v1.CredentialService.GetNodeCredential` takes a `CredentialRequest` with
-`node_id` (int64) and returns `CredentialResponse.password` (string). A future server
-must return `NOT_FOUND` for an unknown node and `UNAVAILABLE` for a backend outage.
+`node_id` (int64) and returns `CredentialResponse.password` (string). Central Auth
+implements the server and returns `NOT_FOUND` for an unknown node and
+`UNAVAILABLE` for a backend outage.
 
 The backend holds system-generated passwords in clear text. Only authorized
 registrars may retrieve them. TLS verification and service authentication are
@@ -36,5 +37,5 @@ required; the server must enforce credential lookup scope. Tokens use
 `authorization: Bearer …` metadata. Never put passwords in logs or errors.
 
 HTTP password verification and IAX MD5 challenge-response stay in their respective
-registrars. The central service is implemented for review, with its initial release pending. See the
+registrars. See the
 [authentication overview](../../authentication.md) for cache and outage behavior.

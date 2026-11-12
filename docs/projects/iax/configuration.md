@@ -19,7 +19,7 @@ For host-managed files mounted at `/config`, set `RPT_CONFIG_DIR=/config`. Files
 plain TOML without environment sections. Use absolute paths for mounted credentials.
 
 The `grpc` backend retrieves a node's password from a compatible credential service.
-IAX challenge-response verification stays in this service. The central credential service is implemented for review; its initial release is pending. The client requires verified TLS and a service
+IAX challenge-response verification stays in this service. Central Auth implements the credential lookup server. The client requires verified TLS and a service
 token or client certificate. Successful lookups use a cache of up to 4096 entries
 with a 60-second TTL by default. Unexpired credentials remain usable during an
 outage; expired credentials and new lookups fail closed. Password rotation can take
@@ -78,7 +78,7 @@ entries except HTTP body size, which counts bytes. Empty strings mean unset.
 
 ## Credential RPC connection
 
-The central credential service is implemented for review. With a deployed server,
+Central Auth implements the credential lookup server. When the deployment provides an endpoint,
 configure verified TLS and a service identity, for example:
 
 ```toml

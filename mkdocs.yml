@@ -19,58 +19,56 @@ validation:
     not_found: warn
     anchors: warn
 nav:
-  - Start here: index.md
-  - Deployment plan: getting-started.md
-  - Architecture: architecture.md
-  - Shared configuration: configuration.md
-  - Authentication: authentication.md
-  - DNS directory:
-      - Overview: projects/dns/index.md
-      - Requirements and deployment: projects/dns/deployment.md
-      - Configuration: projects/dns/configuration.md
-      - Operation and troubleshooting: projects/dns/operations.md
-      - Protocol and behavior: projects/dns/protocol.md
-      - Development: projects/dns/development.md
-  - HTTP registrar:
-      - Overview: projects/http/index.md
-      - Requirements and deployment: projects/http/deployment.md
-      - Configuration: projects/http/configuration.md
-      - Operation and troubleshooting: projects/http/operations.md
-      - Protocol and behavior: projects/http/protocol.md
-      - Authentication and limits: projects/http/authentication.md
-      - Development: projects/http/development.md
-  - IAX registrar:
-      - Overview: projects/iax/index.md
-      - Requirements and deployment: projects/iax/deployment.md
-      - Configuration: projects/iax/configuration.md
-      - Operation and troubleshooting: projects/iax/operations.md
-      - Protocol and behavior: projects/iax/protocol.md
-      - Authentication and limits: projects/iax/authentication.md
-      - Development: projects/iax/development.md
-  - Central credential service:
-      - Overview: projects/central-auth/index.md
-      - Deployment: projects/central-auth/deployment.md
-      - Configuration: projects/central-auth/configuration.md
-      - Operation and health: projects/central-auth/operations.md
-      - Backend modules: projects/central-auth/backends.md
-      - Development: projects/central-auth/development.md
-  - Shared Python models:
-      - Overview: projects/common/index.md
-      - Credential model: projects/common/model.md
-      - Migrations: projects/common/migrations.md
-      - Development: projects/common/development.md
-  - Shared protobuf library:
-      - Overview: projects/protobuf/index.md
-      - Requirements and deployment: projects/protobuf/deployment.md
-      - Configuration: projects/protobuf/configuration.md
-      - Operation and troubleshooting: projects/protobuf/operations.md
-      - Development: projects/protobuf/development.md
-  - Glossary: glossary.md
-  - Maintainers:
+  - Start: index.md
+  - Deployment: getting-started.md
+  - System:
+      - Architecture: architecture.md
+      - Shared configuration: configuration.md
+      - Authentication: authentication.md
+      - Components: components.md
+  - Services:
+      - DNS directory:
+          - Overview: projects/dns/index.md
+          - Deployment: projects/dns/deployment.md
+          - Configuration: projects/dns/configuration.md
+          - Operations: projects/dns/operations.md
+          - Protocol: projects/dns/protocol.md
+          - Development: projects/dns/development.md
+      - HTTP registrar:
+          - Overview: projects/http/index.md
+          - Deployment: projects/http/deployment.md
+          - Configuration: projects/http/configuration.md
+          - Operations: projects/http/operations.md
+          - Protocol: projects/http/protocol.md
+          - Authentication and limits: projects/http/authentication.md
+          - Development: projects/http/development.md
+      - IAX registrar:
+          - Overview: projects/iax/index.md
+          - Deployment: projects/iax/deployment.md
+          - Configuration: projects/iax/configuration.md
+          - Operations: projects/iax/operations.md
+          - Protocol: projects/iax/protocol.md
+          - Authentication and limits: projects/iax/authentication.md
+          - Development: projects/iax/development.md
+      - Central credential service:
+          - Overview: projects/central-auth/index.md
+          - Deployment: projects/central-auth/deployment.md
+          - Configuration: projects/central-auth/configuration.md
+          - Operations and health: projects/central-auth/operations.md
+          - Backend modules: projects/central-auth/backends.md
+          - Development: projects/central-auth/development.md
+      - Shared Python models:
+          - Overview: projects/common/index.md
+          - Credential model: projects/common/model.md
+          - Migrations: projects/common/migrations.md
+          - Development: projects/common/development.md
+      - Shared protobuf library:
+          - Overview: projects/protobuf/index.md
+          - Deployment: projects/protobuf/deployment.md
+          - Configuration: projects/protobuf/configuration.md
+          - Operations: projects/protobuf/operations.md
+          - Development: projects/protobuf/development.md
+  - Reference:
+      - Glossary: glossary.md
+      - Current shared decisions: decisions.md
       - Documentation and publishing: maintainers/documentation.md
-      - Agreed project design: maintainers/design-review.md
-      - Validation evidence: maintainers/validation.md
-      - Release review: maintainers/release-review.md
-      - Decisions:
-          - Shared schema dependency: decisions/0001-shared-schema-dependency.md
-          - Local verification and credential lookup: decisions/0002-local-authentication-with-credential-lookup.md

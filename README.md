@@ -24,5 +24,5 @@ output goes into the ignored `site/` directory. No services, brokers, or credent
 are needed to build the documentation.
 
 Development and publishing instructions are near the end of the site's navigation.
-The workflow validates pull requests and publishes approved main-branch changes
-through GitHub Pages after repository setup. No deployment has been performed yet.
+The workflow validates pull requests and publishes main-branch changes through
+GitHub Pages when the repository's Pages environment is configured.
