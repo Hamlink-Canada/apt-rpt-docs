@@ -69,6 +69,7 @@ nav:
           - Operations: projects/protobuf/operations.md
           - Development: projects/protobuf/development.md
   - Reference:
+      - Documentation guide: guide.md
       - Glossary: glossary.md
       - Current shared decisions: decisions.md
       - Documentation and publishing: maintainers/documentation.md
