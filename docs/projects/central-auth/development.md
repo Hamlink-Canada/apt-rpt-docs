@@ -25,5 +25,5 @@ architectures; publishing is restricted to pushed version tags. No Python packag
 are uploaded to PyPI. Separate builds can resolve newer shared code; image digests
 identify exact artifacts.
 
-For current validation results, use the repository's CI checks and release workflow.
-Report live cluster rollout status separately from local and CI validation.
+Use CI and the release workflow for current validation results. They do not report
+the status of a live cluster rollout.

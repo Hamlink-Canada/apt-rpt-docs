@@ -1,13 +1,10 @@
 # Configuration and compatibility
 
 The library has no runtime configuration. `RPT_` settings belong to the services.
-Select the library revision when building each service; running containers do not
-fetch or regenerate schemas.
-
-
 Each service follows the library's `main` branch when building from source; CI
-resolves it once per run. Use versioned service images or image digests for deployments. There is no
-need to regenerate bindings on a running service.
+resolves it once per run. Choose the library revision when building a service, then
+deploy a versioned service image or image digest. Running containers do not fetch
+the library or regenerate schemas.
 
 The DNS messages describe when a registration was issued and the node's ID, IPv4
 address, port, lifetime, and originating server. The node details are nested inside

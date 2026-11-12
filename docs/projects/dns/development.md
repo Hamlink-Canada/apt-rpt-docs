@@ -1,7 +1,6 @@
 # Development
 
-Run these commands from the service repository, not this documentation checkout.
-
+Run these commands from the service repository.
 
 Use Python 3.13+ and uv. Place `dnsserver` and `rpt_protobuf` next to one another,
 with the library checked out at the revision printed by `scripts/dependency.py`.
@@ -22,6 +21,4 @@ CI checks Python 3.13 and 3.14 and is configured to build and check runtime impo
 on Linux AMD64 and ARM64. Version tags publish versioned images and commit-SHA tags;
 stable releases also update `latest`. Pull requests do not publish images. Python
 packages are not published to PyPI.
-
-
 See [requirements and image builds](deployment.md#build-an-image).
