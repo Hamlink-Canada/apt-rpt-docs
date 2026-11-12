@@ -1,8 +1,8 @@
 # Maintain and publish this site
 
-This repository uses MkDocs and its built-in theme. Markdown lives under `docs/`;
-`mkdocs.yml` defines the navigation, project-page URL, and search plugin. Each service
-has deployment, configuration, operation, protocol, and development pages. The
+This repository uses Zensical. Markdown lives under `docs/`;
+`mkdocs.yml` defines the navigation, project-page URL, theme, and link validation. Each
+service has deployment, configuration, operation, protocol, and development pages. The
 protobuf section documents the library and contracts rather than a standalone service.
 
 ## Edit and preview
@@ -22,8 +22,8 @@ Run `make check` before review. It builds `site/` with strict validation, includ
 local links and anchors. The generated output is ignored by Git. The documentation
 build needs no sibling checkouts, runtime services, or credentials.
 
-`uv.lock` pins the complete documentation toolchain. Update it deliberately with
-uv when changing dependencies. Do not commit secrets or real node credentials.
+`uv.lock` pins Zensical and the complete documentation toolchain. Update it deliberately
+with uv when changing dependencies. Do not commit secrets or real node credentials.
 
 ## GitHub Pages setup
 
@@ -49,7 +49,7 @@ domain is added later, update `site_url` and review DNS/Pages settings separatel
 There is no custom domain configured here and no generated `gh-pages` source branch.
 
 See GitHub's [custom Pages workflow guide](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
-and [MkDocs deployment documentation](https://www.mkdocs.org/user-guide/deploying-your-docs/).
+and [Zensical documentation](https://zensical.org/docs/).
 
 ## Keep the site current
 
