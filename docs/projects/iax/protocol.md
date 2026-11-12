@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # IAX registration behavior
 
 The registrar supports IAX2 MD5 registration, PING/PONG, LAGRQ/LAGRP, and the existing

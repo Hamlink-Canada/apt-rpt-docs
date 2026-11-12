@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # IAX repeater registration
 
 This service accepts IAX2 registrations from repeater nodes. It verifies their MD5

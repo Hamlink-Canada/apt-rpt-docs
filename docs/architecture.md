@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # How the components connect
 
 A repeater sends a registration to the HTTP or IAX registrar. The registrar checks

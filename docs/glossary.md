@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # Repeater Registration
 
 Registration services announce where repeater nodes can be reached. The directory exposes current registrations through DNS.
