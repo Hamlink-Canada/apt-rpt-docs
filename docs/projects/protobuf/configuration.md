@@ -1,13 +1,10 @@
 # Configuration and compatibility
 
 The library has no runtime configuration. `RPT_` settings belong to the services.
-Select the library revision when building each service; running containers do not
-fetch or regenerate schemas.
-
-
-Each service pins this library to a full Git commit. Keep that pin when building a
-service from source, and use versioned service images for deployments. There is no
-need to regenerate bindings on a running service.
+Each service follows the library's `main` branch when building from source; CI
+resolves it once per run. Choose the library revision when building a service, then
+deploy a versioned service image or image digest. Running containers do not fetch
+the library or regenerate schemas.
 
 The DNS messages describe when a registration was issued and the node's ID, IPv4
 address, port, lifetime, and originating server. The node details are nested inside
@@ -16,7 +13,8 @@ messages are not supported by the updated services.
 
 The credential lookup interface allows an authorized registrar to retrieve a node's
 generated password. The registrar verifies the client's credentials locally; IAX
-challenge handling stays in the IAX project. The central credential service is implemented for review; its initial release is pending.
+challenge handling stays in the IAX project. Central Auth implements the credential lookup server; configure the client when its
+endpoint and authorization policy are available in the deployment.
 
 Credential lookup requires an authenticated, authorized service connection. Clients
 use verified TLS with a service token or mutual TLS. Every authenticated registrar may retrieve any node credential in its network;

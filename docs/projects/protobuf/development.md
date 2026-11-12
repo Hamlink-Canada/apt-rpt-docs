@@ -33,11 +33,8 @@ backend outage. Service tokens use `authorization: Bearer …` metadata. Generat
 32-character ASCII base64url passwords fit the AllStarLink client's 79-character
 limit and avoid its configuration delimiters.
 
-Install from a full Git SHA, or use the editable sibling checkout supported by the
-service repositories while developing changes together. Update consumer dependency
-pins and lockfiles when adopting a new library revision. Keep application code,
-configuration, and authentication implementations in their service projects.
-
-The [dependency ADR](../../decisions/0001-shared-schema-dependency.md) and
-[authentication ADR](../../decisions/0002-local-authentication-with-credential-lookup.md)
-record the reasons for these choices.
+Services follow the shared library's `main` branch for source builds. CI resolves
+that branch once per workflow run so test and image jobs use the same revision.
+Editable sibling checkouts support coordinated local development. Update lockfiles
+when dependency metadata changes. Keep application code, configuration, and
+authentication implementations in their service projects.

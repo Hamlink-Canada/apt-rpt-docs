@@ -1,8 +1,8 @@
 # Repeater registration and discovery
 
-These projects register repeater nodes and let clients find their current IAX
-endpoints through DNS. Deploy either registrar, or both, with a Kafka broker and
-the DNS directory. The shared protobuf library gives them the same message format.
+These projects register repeater nodes and let clients find current endpoints
+through DNS. Registrars publish updates to Kafka; the DNS directory rebuilds its
+current view from shared registration messages.
 
 | Project | What it does | Where to start |
 | --- | --- | --- |
@@ -13,11 +13,12 @@ the DNS directory. The shared protobuf library gives them the same message forma
 | Shared Python models | Defines credential records and migrations | [Understand pyCommon](projects/common/index.md) |
 | Shared protobuf library | Defines the registration messages and credential RPC | [Understand the library](projects/protobuf/index.md) |
 
-Start with [how the components connect](architecture.md) and the
-[deployment checklist](getting-started.md). Each project has its own deployment,
-configuration, operation, and development pages.
+Start with [how the components connect](architecture.md), the
+[deployment checklist](getting-started.md), and [shared configuration](configuration.md).
+Each component section links to deployment, configuration, operations, and
+development material. Source repositories also include standalone documentation.
 
-These pages describe the current shared-protobuf cleanup working branches. Service
-image publication is still pending; build a local image until a versioned release
-is available. Central Auth and the shared database models are now implemented for review; their
-initial release remains pending. Local CSV credentials remain supported by both registrars.
+Central Auth and the shared credential model are implemented in their own
+repositories. Release and deployment status is defined by those repositories and
+the target environment; this guide does not track time-specific release progress.
+Both registrars support local credential files and the credential lookup client.

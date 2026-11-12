@@ -7,8 +7,8 @@ or runtime image. Use the library README for setup and test commands.
 Central Auth declares this library from Git main and uses an editable sibling
 checkout during development. Its image copies only shared package build inputs
 from the named context `pycommon`. Its CI resolves common/protobuf revisions once
-per run. Merge the initial shared-library implementation before expecting public
-main-based consumer builds to work.
+per run. The package is available on the public `main` branch; consumer builds use
+the revision resolved at the start of each workflow run.
 
 Change model definitions and migrations together. Verify fresh/repeated upgrades,
 explicit node IDs, disabled defaults, validation, and packaged migration resources.

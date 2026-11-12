@@ -33,14 +33,14 @@ manual dispatch deploys only when run against `main`. Publishing needs the `page
 write and OIDC token permissions in the deployment job; validation has read-only
 repository permissions. Third-party actions are pinned to full commit SHAs.
 
-Before the first deployment, review these repository changes:
+To enable or verify GitHub Pages publishing, check these settings:
 
 1. In **Settings → Pages**, select **GitHub Actions** as the build and deployment
-   source. The local work has not changed this setting.
+   source.
 2. Review the `github-pages` environment and allow deployment only from `main`.
    Add required reviewers if publication needs an approval gate.
-3. Review and merge the documentation branch. The main-branch push will then
-   publish the site; do not merge before you intend to publish.
+3. A push to `main` publishes the site. Confirm that the deployment job completed
+   successfully before relying on the published pages.
 4. Check the Pages workflow and its deployment URL. Confirm navigation, search,
    code blocks, and links work at the project subpath `/apt-rpt-docs/`.
 
@@ -53,13 +53,8 @@ and [MkDocs deployment documentation](https://www.mkdocs.org/user-guide/deployin
 
 ## Keep the site current
 
-Change the relevant project pages alongside behavior, configuration, and release
-changes. Root service READMEs remain short deployment entry points; the site holds
-the cross-project description and detailed operator reference. The initial content
-describes the cleanup branches, so remove the pending-release notice only after
-the corresponding service images are actually published.
-
-The [release review](release-review.md) records external actions still needing
-review. [Validation evidence](validation.md) distinguishes completed checks from
-untested deployment assumptions. Do not treat historical results as checks of every
-future revision.
+Update the relevant project pages when behavior, configuration, or deployment
+requirements change. Keep this site focused on cross-project operation; each source
+repository maintains its own standalone documentation. Check configuration examples
+against the source defaults and shipped settings files, which may intentionally
+differ. Keep environment-specific deployment status out of general reference pages.

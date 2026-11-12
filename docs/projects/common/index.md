@@ -1,8 +1,8 @@
 # Shared Python utilities
 
 [pyCommon](https://github.com/Hamlink-Canada/pyCommon) owns Python code shared across
-projects, initially the SQLAlchemy node-credential model and its migrations. Central
-Auth reads the model; a separate provisioning project will write credentials. There
+projects, including the SQLAlchemy node-credential model and its migrations. Central
+Auth reads the model; an operator-managed process writes credentials. There
 is no shared-library service endpoint or standalone runtime image.
 
 Database models live in `rpt_common.models`; migrations remain in
@@ -12,5 +12,5 @@ packages.
 Start with [the model](model.md), [migrations](migrations.md), and
 [development](development.md). Operator command and Job examples are maintained in
 the [library README](https://github.com/Hamlink-Canada/pyCommon#readme) and Central Auth
-README. The implementation is prepared locally; publication/merge status must be
-checked before consuming the initial package from Git main.
+README. The package is available from Git `main`; follow the library README for
+installation and dependency pinning.

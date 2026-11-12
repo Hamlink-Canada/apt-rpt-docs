@@ -26,9 +26,10 @@ Kafka bootstrap, topic, and timeout/group settings, but currently expose no Kafk
 SASL or TLS settings. Deploy Kafka on an appropriately restricted network.
 
 The shared library contains schemas and generated Python bindings. It runs inside
-the service images and has no network endpoint. All three services pin it by a full
-Git SHA. Python packages are not published to PyPI; services are distributed as
-Docker images.
+the service images and has no network endpoint. Service builds follow its `main`
+branch; each CI run resolves that branch once for its test and image jobs. Use a
+versioned image or image digest when repeatable deployment of one built artifact is
+required. Schemas and generated bindings belong in the shared library repository.
 
 ## Lifetimes and restarts
 
