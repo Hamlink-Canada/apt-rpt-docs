@@ -61,5 +61,6 @@ docker buildx build --load \
   --tag rpt-iax-register:local .
 ```
 
-The build fetches the public protobuf library at the revision pinned by this project.
+The build fetches the public protobuf library from its `main` branch. CI resolves
+that branch once per run and uses the same revision for its test and image jobs.
 The image starts `rpt-iax`.

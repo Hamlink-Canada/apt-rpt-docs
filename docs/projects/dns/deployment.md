@@ -39,6 +39,7 @@ docker buildx build --load \
   --tag rpt-dnsserver:local .
 ```
 
-This fetches the public protobuf dependency at the revision pinned by this project.
+This fetches the public protobuf dependency from its `main` branch. CI resolves that
+branch once per run and uses the same revision for its test and image jobs.
 The image runs as UID/GID 10001 and starts `rpt-dns`. Configuration files mounted into
 the container must be readable by that user.

@@ -72,5 +72,6 @@ docker buildx build --load \
   --tag rpt-http-register:local .
 ```
 
-The build uses the public protobuf library at this project's pinned revision.
+The build uses the public protobuf library from its `main` branch. CI resolves that
+branch once per run and uses the same revision for its test and image jobs.
 The image starts the production WSGI server through `rpt-http`.

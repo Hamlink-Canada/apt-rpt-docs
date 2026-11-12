@@ -73,3 +73,4 @@ nav:
       - Glossary: glossary.md
       - Current shared decisions: decisions.md
       - Documentation and publishing: maintainers/documentation.md
+      - Repository names and images: maintainers/repository-names.md
