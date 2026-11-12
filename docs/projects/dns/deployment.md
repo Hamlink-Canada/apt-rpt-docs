@@ -2,7 +2,7 @@
 
 ## Run the service
 
-Choose a versioned image from `ghcr.io/hamlink-canada/rpt-dnsserver` when a release
+Choose a versioned image from `ghcr.io/hamlink-canada/register-dns_server` when a release
 is available. To run this checkout before an image is published, follow
 [Build an image](#build-an-image) and use `rpt-dnsserver:local` below.
 

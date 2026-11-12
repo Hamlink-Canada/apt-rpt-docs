@@ -1,32 +1,19 @@
-# Repository names and images
+# Repositories and container images
 
-Use the current repository names in links, new checkouts, and issue reports.
-Three registrar repositories have changed names:
+Use the repository links for source, development, and issue reports. Use the exact
+GHCR path in the image column when deploying a service:
 
-| Component | Previous name | Current repository | Container image |
-| --- | --- | --- | --- |
-| DNS directory | `dnsserver` | [Register-DNS_Server](https://github.com/Hamlink-Canada/Register-DNS_Server) | `ghcr.io/hamlink-canada/rpt-dnsserver` |
-| HTTP registrar | `pyHTTP-Register` | [Register-pyHTTP](https://github.com/Hamlink-Canada/Register-pyHTTP) | `ghcr.io/hamlink-canada/rpt-http-register` |
-| IAX registrar | `pyIAX-Register` | [Register-pyIAX](https://github.com/Hamlink-Canada/Register-pyIAX) | `ghcr.io/hamlink-canada/rpt-iax-register` |
+| Component | Repository | Container image |
+| --- | --- | --- |
+| Central Auth | [Register-Central_Auth](https://github.com/Hamlink-Canada/Register-Central_Auth) | `ghcr.io/hamlink-canada/register-central-auth` |
+| DNS directory | [Register-DNS_Server](https://github.com/Hamlink-Canada/Register-DNS_Server) | `ghcr.io/hamlink-canada/register-dns_server` |
+| HTTP registrar | [Register-pyHTTP](https://github.com/Hamlink-Canada/Register-pyHTTP) | `ghcr.io/hamlink-canada/register-pyhttp` |
+| IAX registrar | [Register-pyIAX](https://github.com/Hamlink-Canada/Register-pyIAX) | `ghcr.io/hamlink-canada/register-pyiax` |
 
-The other project repositories are [Register-Central_Auth](https://github.com/Hamlink-Canada/Register-Central_Auth),
-[pyCommon](https://github.com/Hamlink-Canada/pyCommon),
-[rpt_protobuf](https://github.com/Hamlink-Canada/rpt_protobuf), and
-[apt-rpt-docs](https://github.com/Hamlink-Canada/apt-rpt-docs). Central Auth's
-container image is `ghcr.io/hamlink-canada/rpt-central-auth`. The shared libraries
-and documentation site do not publish service images.
-
-Existing local directories can keep their current names. To point an existing
-registrar checkout at its canonical repository, set `origin` to the matching URL:
-
-```sh
-git remote set-url origin git@github.com:Hamlink-Canada/Register-DNS_Server.git
-git remote -v
-```
-
-Use `Register-pyHTTP.git` or `Register-pyIAX.git` for the other registrar checkouts.
-For a new checkout, clone the current repository name. The registrar image paths
-remain the same as before the repository renames.
+The [pyCommon](https://github.com/Hamlink-Canada/pyCommon) and
+[rpt_protobuf](https://github.com/Hamlink-Canada/rpt_protobuf) repositories contain
+shared libraries and do not publish service images. The [apt-rpt-docs](https://github.com/Hamlink-Canada/apt-rpt-docs)
+repository contains this site.
 
 Service repositories build against the `main` branch of `rpt_protobuf`. CI resolves
 that branch once per run and uses the same revision for tests and image builds. A
