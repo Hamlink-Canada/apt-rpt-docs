@@ -19,9 +19,9 @@ make serve
 ```
 
 Open <http://127.0.0.1:8000/>, then edit Markdown under `docs/`. `mkdocs.yml` defines
-the navigation. `make check` builds with strict link/configuration validation; static
-output goes into the ignored `site/` directory. No services, brokers, or credentials
-are needed to build the documentation.
+the navigation and Zensical configuration. `make check` builds with strict link and
+configuration validation; static output goes into the ignored `site/` directory. No
+services, brokers, or credentials are needed to build the documentation.
 
 Development and publishing instructions are near the end of the site's navigation.
 The workflow validates pull requests and publishes main-branch changes through
