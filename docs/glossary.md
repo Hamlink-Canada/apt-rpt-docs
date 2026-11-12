@@ -25,3 +25,9 @@ A system-generated shared secret used to prove a node's identity during registra
 
 **Credential service**:
 A trusted source of registration passwords for authorized registrars.
+
+**PROXY protocol**:
+A transport metadata format that carries the original client and destination endpoints through a trusted proxy. The IAX registrar supports PROXY protocol v2 over UDP/IPv4 when explicitly enabled and restricted to trusted proxy addresses.
+
+**Trusted UDP proxy**:
+A UDP proxy whose source IPv4 address is allowlisted by the IAX registrar and that adds PROXY protocol v2 headers to forwarded IAX datagrams.

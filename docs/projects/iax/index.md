@@ -7,7 +7,8 @@ is not supported.
 
 You need Docker, a reachable Kafka broker, and credentials for the nodes allowed
 to register. The address and UDP port observed by the service are published as the
-node's endpoint, so the deployment must preserve the client's source address.
+node's endpoint, so the deployment must preserve the client's source address or
+use PROXY protocol v2 with a trusted UDP proxy.
 
 
 ## Pages

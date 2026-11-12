@@ -10,6 +10,7 @@ IAX port.
 Repeater --HTTPS--> Reverse proxy --> HTTP registrar --+            +--> DNS instance
                                                       +--> Kafka --+
 Repeater -------------------UDP----> IAX registrar ----+            +--> DNS instance
+Repeater --UDP--> trusted proxy --PROXY v2/UDP4-------> IAX registrar
                                          |
                                 Local CSV or credential RPC
 ```

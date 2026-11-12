@@ -15,8 +15,19 @@ validity is configured separately to permit missed renewals.
 
 SIGTERM stops request admission and closes resources. Preserve the observed source
 address and UDP port through container/network ingress: they are the address published
-for the node. The service listens on UDP 4569 by default; optional host networking
-is a deployment decision rather than a hardcoded Compose requirement.
+for the node. Alternatively, enable PROXY protocol v2 for a trusted UDP proxy. In this
+mode, every datagram must contain one PROXY v2 header followed by one IAX payload. The
+registrar accepts the PROXY command with the INET/UDP address family (IPv4), and uses
+the header's source IPv4 address and UDP port for IAX identity, rate limits, and the
+published endpoint. It sends responses to the UDP address of the proxy that sent the
+datagram, so the proxy must route those responses to the corresponding client.
+
+Configure an explicit IPv4 CIDR allowlist for proxy source addresses. Datagrams from
+other source addresses, malformed headers, and unsupported PROXY address families are
+dropped. When PROXY mode is enabled, raw IAX datagrams are not accepted on that listener;
+use a separate listener or deployment if both forms are needed. PROXY mode is disabled
+by default. The service listens on UDP 4569 by default; optional host networking is a
+deployment decision rather than a hardcoded Compose requirement.
 
 Protocol reference: https://www.rfc-editor.org/rfc/rfc5456.html
 Tests include real UDP exchanges, peer/identity separation, replay, expiry, and final
