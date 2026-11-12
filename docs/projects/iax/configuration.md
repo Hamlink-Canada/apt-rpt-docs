@@ -1,3 +1,6 @@
+Failed to create stream fd: Operation not permitted
+Failed to create stream fd: Operation not permitted
+Failed to create stream fd: Operation not permitted
 # Configuration
 
 
@@ -10,6 +13,8 @@
 | `RPT_SERVER_ID` | `registrar-1` in the image settings | Identifier included in registrations. |
 | `RPT_REFRESH` | `60` | Refresh value sent in REGACK, in seconds. |
 | `RPT_LIFETIME` | `180` | Registration validity in the DNS directory, in seconds. |
+| `RPT_PROXY_PROTOCOL__ENABLED` | `false` | Require a PROXY protocol v2 header on every IAX datagram. |
+| `RPT_PROXY_PROTOCOL__TRUSTED_PROXIES` | `[]` | IPv4 CIDRs allowed to send PROXY datagrams; required when enabled. |
 | `RPT_AUTH__BACKEND` | `file` | Credential source: `file` or `grpc`. |
 | `RPT_AUTH__FILE` | `/run/secrets/credentials.csv` in the image settings | Local credential file. |
 
@@ -61,6 +66,8 @@ entries except HTTP body size, which counts bytes. Empty strings mean unset.
 | `RPT_KAFKA__BOOTSTRAP` | `'localhost:9092'` |
 | `RPT_KAFKA__TOPIC` | `'rpt.registrations'` |
 | `RPT_KAFKA__TIMEOUT` | `5` |
+| `RPT_PROXY_PROTOCOL__ENABLED` | `false` |
+| `RPT_PROXY_PROTOCOL__TRUSTED_PROXIES` | `[]` |
 | `RPT_LIMITS__STATE_SIZE` | `16384` |
 | `RPT_LIMITS__GLOBAL_RATE` | `60000` |
 | `RPT_LIMITS__GLOBAL_BURST` | `2000` |
@@ -108,3 +115,23 @@ the originating registrar in DNS metadata. `RPT_LIFETIME` must exceed `RPT_REFRE
 Rate and burst settings are described on the [authentication page](authentication.md).
 `LIMITS.STATE_SIZE` bounds rate-limit keys; IAX `LIMITS.CALL_SIZE` bounds transactions
 and `LIMITS.CHALLENGE_TTL` bounds the challenge verification window.
+
+## PROXY protocol for UDP ingress
+
+Enable PROXY protocol v2 only when a UDP proxy prepends a PROXY v2 UDP/IPv4 header to
+every datagram sent to the registrar. List the proxy's source IPv4 address or CIDR in
+`trusted_proxies`:
+
+```toml
+[proxy_protocol]
+enabled = true
+trusted_proxies = ["192.0.2.10/32"]
+```
+
+The environment equivalents are `RPT_PROXY_PROTOCOL__ENABLED=true` and
+`RPT_PROXY_PROTOCOL__TRUSTED_PROXIES=["192.0.2.10/32"]`. Use the addresses observed by
+the registrar for the proxy hosts, not the repeater addresses carried in the header.
+When enabled, the listener rejects untrusted senders and datagrams without a supported
+header; it does not accept raw IAX packets alongside PROXY-wrapped packets. The proxy
+must receive registrar replies and forward them to the matching repeater. See
+[IAX behavior](protocol.md) and [deployment](deployment.md) for the data path.

@@ -1,3 +1,6 @@
+Failed to create stream fd: Operation not permitted
+Failed to create stream fd: Operation not permitted
+Failed to create stream fd: Operation not permitted
 # How the components connect
 
 A repeater sends a registration to the HTTP or IAX registrar. The registrar checks
@@ -10,6 +13,7 @@ IAX port.
 Repeater --HTTPS--> Reverse proxy --> HTTP registrar --+            +--> DNS instance
                                                       +--> Kafka --+
 Repeater -------------------UDP----> IAX registrar ----+            +--> DNS instance
+Repeater --UDP--> trusted proxy --PROXY v2/UDP4-------> IAX registrar
                                          |
                                 Local CSV or credential RPC
 ```

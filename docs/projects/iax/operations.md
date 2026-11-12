@@ -1,3 +1,6 @@
+Failed to create stream fd: Operation not permitted
+Failed to create stream fd: Operation not permitted
+Failed to create stream fd: Operation not permitted
 # Operation and troubleshooting
 
 
@@ -35,7 +38,7 @@ SIGTERM stops request admission and closes service resources.
 | --- | --- |
 | No challenge arrives | UDP 4569, host firewall, listener address, and port conflicts |
 | Challenge arrives but registration fails | Node ID/password, challenge expiry, and backend/Kafka availability |
-| DNS endpoint points at a gateway | Network ingress must preserve the original source IP and UDP port |
+| DNS endpoint points at a gateway | Preserve the original source IP and UDP port, or configure trusted PROXY protocol as described in [deployment](deployment.md) |
 | Failures occur during bursts | Worker, transaction, and source budgets; shared NAT capacity |
 | Node stops appearing in DNS | Renewal interval, lifetime, and broker publication |
 
