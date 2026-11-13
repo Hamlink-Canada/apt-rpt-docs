@@ -6,13 +6,23 @@ instance reads every partition of the registration topic and builds a local
 in-memory directory. Clients query that directory for a node's IPv4 address and
 IAX port.
 
-```text
-Repeater --HTTPS--> Reverse proxy --> HTTP registrar --+            +--> DNS instance
-                                                      +--> Kafka --+
-Repeater -------------------UDP----> IAX registrar ----+            +--> DNS instance
-Repeater --UDP--> trusted proxy --PROXY v2/UDP4-------> IAX registrar
-                                         |
-                                Local CSV or credential RPC
+```mermaid
+flowchart LR
+  Repeater[Repeater] -->|HTTPS| Proxy[Reverse proxy] --> HTTP[HTTP registrar]
+  Repeater -->|UDP| IAX[IAX registrar]
+  Repeater -->|UDP| TrustedProxy[Trusted UDP proxy]
+  TrustedProxy -->|PROXY v2 / UDP4| IAX
+
+  HTTP -->|timestamped node updates| Kafka[(Kafka)]
+  IAX -->|timestamped node updates| Kafka
+  Kafka -->|full topic replay| DNS[DNS instances]
+
+  HTTP --> HttpCredentialSource{HTTP credential source}
+  HttpCredentialSource -->|local CSV at startup| HttpCSV[(HTTP local CSV)]
+  HttpCredentialSource -->|gRPC password lookup| Auth[Central Auth]
+  IAX --> IaxCredentialSource{IAX credential source}
+  IaxCredentialSource -->|local CSV at startup| IaxCSV[(IAX local CSV)]
+  IaxCredentialSource -->|gRPC password lookup| Auth
 ```
 
 Both registrars use the same credential-provider contract. They read a local CSV
