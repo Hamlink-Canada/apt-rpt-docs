@@ -5,6 +5,15 @@ edit_uri: edit/main/docs/
 site_description: Deployment and operation of repeater registration and DNS services
 theme:
   variant: modern
+  palette:
+    - scheme: slate
+      toggle:
+        icon: lucide/moon
+        name: Switch to light mode
+    - scheme: default
+      toggle:
+        icon: lucide/sun
+        name: Switch to dark mode
 plugins:
   - search
 markdown_extensions:
