@@ -1,6 +1,9 @@
-# Central credential service
+Failed to create stream fd: Operation not permitted
+Failed to create stream fd: Operation not permitted
+Failed to create stream fd: Operation not permitted
+# Central Credential System
 
-[Register-Central_Auth](https://github.com/Hamlink-Canada/Register-Central_Auth) supplies
+[Central Auth](https://github.com/Hamlink-Canada/Register-Central_Auth) supplies
 node registration passwords to trusted registrars over gRPC. It does not verify IAX
 challenges, register nodes, or administer credentials. HTTP and IAX registrars keep
 those responsibilities. Operators supply backend data and run database migrations

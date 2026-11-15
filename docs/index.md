@@ -1,24 +1,28 @@
-# Repeater registration and discovery
+Failed to create stream fd: Operation not permitted
+Failed to create stream fd: Operation not permitted
+Failed to create stream fd: Operation not permitted
+# Apt-RPT repeater network
 
-These projects register repeater nodes and let clients find current endpoints
-through DNS. Registrars publish updates to Kafka; the DNS directory rebuilds its
-current view from shared registration messages.
+Apt-RPT brings together tools for managing repeater sites and repeaters, accepting
+their live registrations, and helping clients find them. This documentation
+covers two related but separate systems:
 
-| Project | What it does | Where to start |
+| System | Role | Start here |
 | --- | --- | --- |
-| DNS directory | Reads registrations from Kafka and answers node lookups | [Deploy DNS](projects/dns/deployment.md) |
-| HTTP registrar | Accepts AllStarLink-compatible HTTPS registrations through a proxy | [Deploy HTTP](projects/http/deployment.md) |
-| IAX registrar | Accepts IAX2 MD5 challenge-response registrations over UDP | [Deploy IAX](projects/iax/deployment.md) |
-| Central Auth | Supplies credentials to trusted registrars | [Deploy Central Auth](projects/central-auth/deployment.md) |
-| Shared Python models | Defines credential records and migrations | [Understand pyCommon](projects/common/index.md) |
-| Shared protobuf library | Defines the registration messages and credential RPC | [Understand the library](projects/protobuf/index.md) |
+| [Portal](portal/index.md) | Human-facing management of Sites, Repeaters, and shared Entity profiles | [Portal overview](portal/index.md) |
+| [Registration](architecture.md) | Authenticate nodes and publish registration observations | [Registration architecture](architecture.md) |
+| [Discovery](discovery/index.md) | Help nodes and clients find currently reachable repeaters | [Discovery overview](discovery/index.md) |
 
-Start with [how the components connect](architecture.md), the
-[deployment checklist](getting-started.md), and [shared configuration](configuration.md).
-Each component section links to deployment, configuration, operations, and
-development material. Source repositories also include standalone documentation.
+Portal manages the network's records and registration credentials. HTTP and IAX
+registrars authenticate nodes and publish observed registration updates. The
+Discovery area currently provides a DNS directory that serves valid endpoints;
+it can grow to include more discovery services as the network evolves. The
+Central Credential System provides registrars with credential lookups. These
+systems can be deployed and operated independently, with configured interfaces
+between them.
 
-Central Auth and the shared credential model are implemented in their own
-repositories. Release and deployment status is defined by those repositories and
-the target environment; this guide does not track time-specific release progress.
-Both registrars support local credential files and the credential lookup client.
+Use [Deployment](getting-started.md) to plan a rollout, then follow the deployment
+guide for each component. The [Reference](glossary.md) section defines shared
+terms and cross-system behavior. Product-specific display names, hostnames, and
+settings belong in deployment configuration so the software can serve different
+networks.
