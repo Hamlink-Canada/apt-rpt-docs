@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # Documentation guide
 
 This site is the operator and maintainer guide for Apt-RPT network systems.

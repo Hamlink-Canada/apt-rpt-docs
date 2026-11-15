@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # Apt-RPT repeater network
 
 Apt-RPT brings together tools for managing repeater sites and repeaters, accepting

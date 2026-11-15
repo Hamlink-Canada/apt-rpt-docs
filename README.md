@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # Apt-RPT network documentation
 
 This repository documents the software and operations for an Apt-RPT repeater

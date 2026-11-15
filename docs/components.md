@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # System architecture
 
 Apt-RPT's documentation covers three cooperating system areas. **Portal** is

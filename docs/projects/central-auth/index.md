@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # Central Credential System
 
 [Central Auth](https://github.com/Hamlink-Canada/Register-Central_Auth) supplies

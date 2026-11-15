@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # Registration credentials and authentication
 
 Both registrars support `file` and `grpc` credential sources. They verify every

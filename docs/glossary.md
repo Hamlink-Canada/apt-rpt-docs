@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # Glossary
 
 Terms used across Portal and the registration services.
@@ -43,6 +40,10 @@ registration validity and derived current-registration freshness.
 
 **Registration password**: A generated shared secret that proves a node's
 identity during registration.
+
+**Runtime Portal configuration**: Public deployment settings loaded by the
+Portal browser application at startup, such as its display name and identity
+provider. It contains no secrets.
 
 **Repeater Association**: A grouping of linked repeaters, potentially maintained
 jointly by different Entities. It is not an Entity of type Association.

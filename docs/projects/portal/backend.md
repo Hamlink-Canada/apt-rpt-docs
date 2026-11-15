@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # Portal backend
 
 The Portal backend is a Python API built with Flask, SQLAlchemy, and Alembic. It
