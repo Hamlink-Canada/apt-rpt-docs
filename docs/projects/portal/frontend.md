@@ -39,11 +39,6 @@ For local Vite development, `VITE_MANAGEMENT_DISPLAY_NAME`, `VITE_OIDC_AUTHORITY
 `VITE_OIDC_CLIENT_ID`, `VITE_ACCOUNT_MANAGEMENT_URL`, and `VITE_API_BASE_URL` remain
 available. `VITE_API_PROXY_TARGET` is only used by the development server.
 
-On the management origin, route `/api` to the backend and configure the web
-server to fall back to `index.html` for client-side routes such as `/sites` and
-`/profile`. Keep hostnames and display names in deployment configuration rather
-than the reusable frontend source.
-
 ## User experience and language
 
 The interface supports English and French. It manages Sites, Entities, and

@@ -13,6 +13,9 @@ and shared Entity profiles and credential models. Product-specific models stay
 with their products. HamClub and HamNetControl retain their names and separate
 closed-source frontend and backend projects. Portal's frontend and backend are
 also separate projects, and each frontend owns its own Vue/Vuetify components.
+The Portal frontend is built once as a generic Docker image; public deployment
+configuration is loaded at runtime, while TLS and backend API routing stay with
+the deployment ingress or reverse proxy.
 
 The public Portal, `pyCommon`, registration service, documentation, and
 Repeater Metadata Updater projects have distinct boundaries. The updater is
