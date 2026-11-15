@@ -1,8 +1,9 @@
-# Node authentication
+# Registration credentials and authentication
 
 Both registrars support `file` and `grpc` credential sources. They verify every
-submitted password or challenge response locally. The backend supplies a generated
-shared password; IAX challenge-response stays in the IAX registrar.
+submitted password or challenge response locally. Portal provisions a generated
+password in the shared credential model; IAX challenge-response stays in the IAX
+registrar.
 
 ## Local file
 
@@ -18,7 +19,7 @@ restrict host access.
 
 ## Central lookup
 
-The [central credential service](projects/central-auth/index.md) implements the
+The [Central Credential System](projects/central-auth/index.md) implements the
 server side of this lookup. Select `grpc` when a compatible server is deployed.
 Use verified TLS with a service token or client certificate pair;
 the server must authorize each registrar's credential scope.

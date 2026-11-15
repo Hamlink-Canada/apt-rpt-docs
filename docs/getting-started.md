@@ -1,31 +1,54 @@
 # Plan a deployment
 
-Choose HTTP for AllStarLink-compatible HTTPS registration, IAX for IAX2 registration,
-or both. They can publish to one topic and share the same node credentials.
+Deploy Portal to manage network records, registration services to authenticate
+nodes and publish updates, and the DNS directory if clients need endpoint
+discovery. These components are separate and can be introduced in stages.
 
-1. Provide a reachable Kafka broker and registration topic. Check every advertised
-   broker address from the service network, not only the bootstrap address.
-2. Choose a node domain, such as `nodes.example.org`, and route DNS queries for it
-   to the DNS service. Standard DNS requires both UDP and TCP port 53 at ingress;
-   the container listens on 5054 by default.
-3. Generate a distinct password for each node. Start with the
-   [local CSV backend](authentication.md). Mount real credentials read-only and
-   make them readable by the container's UID/GID 10001.
-4. Deploy [HTTP](projects/http/deployment.md), [IAX](projects/iax/deployment.md), or
-   both. HTTP needs an HTTPS reverse proxy and explicit proxy trust if forwarded
-   client addresses are used. IAX ingress must preserve the source IP and UDP port.
-5. Deploy [DNS](projects/dns/deployment.md) with the same Kafka topic. Set its domain
-   and directory capacity for your network.
-6. Register a test node, then query its A, TXT, and SRV records. Verify the published
-   address and port match the node, not a proxy or container gateway.
-7. Stop renewals and check expiry. Restart DNS and confirm valid entries recover
-   from Kafka while expired entries stay absent.
+## Plan the network
 
-Use versioned images when releases are available. Until then, each project's
-instructions build its checkout with the pinned public protobuf dependency. Python
-3.13+ and Docker Buildx are needed for those builds; deploying a prebuilt image does
-not require Python or uv on the host.
+1. Choose the network's hostnames, display name, identity provider, and site
+   branding. Supply these as deployment configuration so the software remains
+   reusable across networks.
+2. Decide which registration protocols nodes use: HTTP, IAX, or both. Each
+   registrar can publish to the same Kafka topic and use the same Node ID and
+   credential records.
+3. Provide Kafka and a registration topic. Check that every advertised broker
+   address is reachable from the registrar and DNS service networks.
+4. Choose a node domain, such as `nodes.example.org`, and route UDP and TCP DNS
+   queries for it to the DNS directory. The container listens on port 5054 by
+   default.
+5. Choose how registrars obtain node passwords: a local CSV credential file or
+   the [Central Credential System](projects/central-auth/index.md). Portal
+   provisions credentials in the shared model used by Central Auth.
 
-Before public use, set firewall/proxy limits, test shared-NAT capacity, check TLS,
+## Bring up the systems
+
+1. Prepare the database and apply shared `pyCommon` migrations. Apply Portal's
+   migrations after the shared schema is available.
+2. Configure and deploy the [Portal backend](projects/portal/backend.md) and
+   [frontend](projects/portal/frontend.md). Configure OIDC and route the
+   management site's `/api` requests to the backend.
+3. Deploy [Central Auth](projects/central-auth/deployment.md) if using gRPC
+   lookups. Give it read-only access to the shared credential table and give
+   Portal the write access it needs to provision credentials.
+4. Deploy [HTTP](projects/http/deployment.md), [IAX](projects/iax/deployment.md),
+   or both. HTTP needs an HTTPS reverse proxy and explicit proxy trust if it uses
+   forwarded client addresses. IAX ingress must preserve the source IP and UDP
+   port, or use a trusted UDP proxy configured for PROXY protocol.
+5. Deploy the [DNS directory](projects/dns/deployment.md) with the same Kafka
+   topic. Set its network domain and directory capacity.
+6. Register a test node. Confirm the registration's Node ID, address, and port,
+   then query the node's A, TXT, and SRV records. The DNS result should report
+   the node's reachable address and port, not a proxy or container gateway.
+7. Stop renewals and verify expiration. Restart DNS and confirm that valid
+   registrations recover from Kafka while expired ones stay absent.
+
+The Repeater Metadata Updater that writes live registration observations back to
+Portal is a separate planned project. Until it is deployed, Portal's latest-status
+fields are not populated from the event stream by the documented registration
+services.
+
+Use versioned images or image digests when available. Before public use, set
+firewall and proxy limits, test capacity for nodes behind shared NAT, verify TLS,
 and ensure credentials do not enter access logs, packet captures, or debug dumps.
 Application limits are per process, so replicas need shared ingress controls.

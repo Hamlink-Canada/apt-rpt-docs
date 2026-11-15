@@ -1,33 +1,63 @@
-# Repeater Registration
+# Glossary
 
-Registration services announce where repeater nodes can be reached. The directory exposes current registrations through DNS.
+Terms used across Portal and the registration services.
 
-## Language
+**Association**: An Entity type. An Association is different from a Repeater
+Association.
 
-**Refresh interval**:
-The time a node should wait before renewing its registration.
+**Central Credential System**: A service that provides registration passwords
+to trusted registrars. It does not handle the HTTP or IAX registration protocol.
 
-**Registration lifetime**:
-The period for which a registration remains valid, measured from the time it was issued.
-_Avoid_: Refresh interval
+**Discovery**: Services that help nodes and network clients find currently
+reachable repeaters. DNS is the current discovery interface; more services may
+be added as network needs grow.
 
-**Node**:
-A repeater endpoint identified by a numeric node ID within its network.
+**Entity**: A shared organization profile that can own Sites and be referenced
+across products. Entity type and system-maintained status are independent.
 
-**Registration**:
-A time-limited statement of the network address at which a node can be reached.
+**Node ID**: The numeric identity used by a repeater during registration. Portal
+assigns it to a Repeater.
 
-**Registrar**:
-A service that authenticates node registration requests and announces accepted registrations to the directory.
+**Portal**: The generic management application for Sites, Repeaters, and Entity
+profiles. A particular network supplies its display name and hostnames.
 
-**Registration password**:
-A system-generated shared secret used to prove a node's identity during registration.
+**PROXY protocol**: A transport metadata format that carries original client and
+destination endpoints through a trusted proxy. The IAX registrar supports PROXY
+protocol v2 over UDP/IPv4 when explicitly enabled and restricted to trusted proxy
+addresses.
 
-**Credential service**:
-A trusted source of registration passwords for authorized registrars.
+**Refresh Interval**: How often a node resends its details to the registration
+system.
 
-**PROXY protocol**:
-A transport metadata format that carries the original client and destination endpoints through a trusted proxy. The IAX registrar supports PROXY protocol v2 over UDP/IPv4 when explicitly enabled and restricted to trusted proxy addresses.
+**Registration**: A time-limited statement of the network address at which a node
+can be reached.
 
-**Trusted UDP proxy**:
-A UDP proxy whose source IPv4 address is allowlisted by the IAX registrar and that adds PROXY protocol v2 headers to forwarded IAX datagrams.
+**Registration services**: Systems that authenticate nodes and publish their
+registration observations for discovery and other consumers.
+
+**Registration Lifetime**: The configured period used to determine DNS
+registration validity and derived current-registration freshness.
+
+**Registration password**: A generated shared secret that proves a node's
+identity during registration.
+
+**Runtime Portal configuration**: Public deployment settings loaded by the
+Portal browser application at startup, such as its display name and identity
+provider. It contains no secrets.
+
+**Repeater Association**: A grouping of linked repeaters, potentially maintained
+jointly by different Entities. It is not an Entity of type Association.
+
+**Repeater Metadata Updater**: The separate planned service that consumes
+registration events and writes the latest observed status to Portal.
+
+**Site**: A physical repeater location managed in Portal.
+
+**Site ID / site code**: The location identifier assigned to a Site. In short
+numbering mode, it is also the Node ID of the Site's single Repeater.
+
+**website**: A public or product home page. It is distinct from a physical Site
+and a management portal.
+
+**management portal**: A web application for managing network records, such as
+Portal. It is distinct from a public website and a physical Site.

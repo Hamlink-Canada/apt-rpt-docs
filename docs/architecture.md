@@ -1,4 +1,4 @@
-# How the components connect
+# Registration and discovery architecture
 
 A repeater sends a registration to the HTTP or IAX registrar. The registrar checks
 its credentials, then publishes a timestamped node update to Kafka. Each DNS
@@ -6,28 +6,41 @@ instance reads every partition of the registration topic and builds a local
 in-memory directory. Clients query that directory for a node's IPv4 address and
 IAX port.
 
+This is the network's registration and discovery path. Portal is a separate
+management system that owns Site and Repeater records and provisions node
+credentials. Its latest-registration fields are updated by a planned Repeater
+Metadata Updater that consumes registration events; the updater is separate from
+the web services and is not covered by a service deployment guide yet.
+
 ```mermaid
 flowchart LR
+  User[Network administrator] --> Portal[Portal management system]
+  Portal --> PortalDB[(Portal and shared data)]
+  Portal -->|writes Node ID credential| PortalDB
+  Auth[Central Credential System] -->|reads credential| PortalDB
+
   Repeater[Repeater] -->|HTTPS| Proxy[Reverse proxy] --> HTTP[HTTP registrar]
   Repeater -->|UDP| IAX[IAX registrar]
   Repeater -->|UDP| TrustedProxy[Trusted UDP proxy]
   TrustedProxy -->|PROXY v2 / UDP4| IAX
-
   HTTP -->|timestamped node updates| Kafka[(Kafka)]
   IAX -->|timestamped node updates| Kafka
-  Kafka -->|full topic replay| DNS[DNS instances]
+  Kafka -->|full topic replay| DNS[DNS directory]
+  Client[Network client] -->|DNS queries| DNS
 
   HTTP --> HttpCredentialSource{HTTP credential source}
   HttpCredentialSource -->|local CSV at startup| HttpCSV[(HTTP local CSV)]
-  HttpCredentialSource -->|gRPC password lookup| Auth[Central Auth]
+  HttpCredentialSource -->|gRPC password lookup| Auth
   IAX --> IaxCredentialSource{IAX credential source}
   IaxCredentialSource -->|local CSV at startup| IaxCSV[(IAX local CSV)]
   IaxCredentialSource -->|gRPC password lookup| Auth
+  Kafka -. registration events .-> Updater[Repeater Metadata Updater - planned]
+  Updater -. latest observation .-> PortalDB
 ```
 
 Both registrars use the same credential-provider contract. They read a local CSV
-at startup or retrieve passwords through gRPC. The [central credential service](projects/central-auth/index.md) is implemented for
-review; it does not perform the IAX challenge exchange.
+at startup or retrieve passwords through gRPC. The [Central Credential System](projects/central-auth/index.md)
+implements the gRPC server; it does not perform the IAX challenge exchange.
 
 ## Dependencies and boundaries
 
@@ -44,10 +57,10 @@ required. Schemas and generated bindings belong in the shared library repository
 
 ## Lifetimes and restarts
 
-Registrars default to a 60-second refresh and a 180-second registration lifetime.
-DNS expires each entry using the original event timestamp plus that lifetime.
-Answers cache for at most 60 seconds and never beyond the entry's remaining validity.
-Replaying an event does not renew it.
+Registrars default to a 60-second Refresh Interval and a 180-second Registration
+Lifetime. DNS expires each entry using the original event timestamp plus that
+lifetime. Answers cache for at most 60 seconds and never beyond the entry's
+remaining validity. Replaying an event does not renew it.
 
 DNS starts by replaying Kafka, rejects expired events, and rebuilds its memory
 cache. Each replica needs the whole topic; consumer-group load balancing would leave
