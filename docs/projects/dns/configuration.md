@@ -6,6 +6,17 @@ application overrides. Nested environment names use two underscores.
 `RPT_CONFIG_DIR` defaults to the process working directory. There is no dotenv
 autoload. Use absolute paths for any mounted certificates or secrets.
 
+!!! warning "Required for DNS directory operation"
+    - **Served domain:** Set `RPT_DOMAIN` to the non-empty node domain this
+      directory serves.
+    - **Registration events:** Set `RPT_KAFKA__TOPIC` to the non-empty topic
+      carrying compatible registration messages, and configure
+      `RPT_KAFKA__BOOTSTRAP` to reach its brokers. The documented defaults are
+      suitable only when they match the deployment.
+    - **Kafka SASL/TLS:** If `RPT_KAFKA__SECURITY_PROTOCOL` is set to
+      `SASL_SSL`, also set the SASL mechanism, username, password, and broker
+      CA path.
+
 ## Runtime and DNS listener
 
 ### `RPT_CONFIG_DIR`

@@ -5,6 +5,11 @@ network-neutral `RPT_` prefix. Their individual configuration pages repeat
 every applicable shared setting with its default and purpose, alongside
 project-specific settings.
 
+!!! info "Required settings vary by service"
+    No `RPT_` setting is required by every registrar. Each project configuration
+    page starts with the values needed for its service role and calls out
+    requirements that apply only when a feature is enabled.
+
 ## Configuration file location
 
 ### `RPT_CONFIG_DIR`

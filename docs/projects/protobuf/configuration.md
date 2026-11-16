@@ -9,6 +9,11 @@ consuming service and is documented on that project's configuration page:
 [Central Credential System](../central-auth/configuration.md), and
 [Portal backend](../portal/backend/configuration.md).
 
+!!! info "No runtime configuration"
+    `pyCommon` has no required runtime settings. Select the shared library
+    revision when building each consuming service image; configure that service
+    using its own configuration guide.
+
 The library's source revision is selected when building a service image. CI
 resolves the chosen revision once per run. Deploy a versioned service image or
 image digest; running containers do not fetch the library or regenerate
