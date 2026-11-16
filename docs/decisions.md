@@ -13,6 +13,10 @@ and shared Organisation profiles and credential models. Product-specific models 
 with their products. HamClub and HamNetControl retain their names and separate
 closed-source frontend and backend projects. Portal's frontend and backend are
 also separate projects, and each frontend owns its own Vue/Vuetify components.
+Keep terminology and comparable interaction flows consistent across product
+frontends where their product needs allow it. Align navigation, browsing and
+filtering, detail and edit forms, unsaved-change handling, and status labels by
+policy; do not create a shared Vuetify package.
 The Portal frontend is built once as a generic Docker image; public deployment
 configuration is loaded at runtime, while TLS and backend API routing stay with
 the deployment ingress or reverse proxy.

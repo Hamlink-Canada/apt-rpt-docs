@@ -65,6 +65,11 @@ manages call sign, frequency, tone, administrative enablement, and registration
 credentials. A new or rotated registration secret is shown once. Administrative
 enablement is separate from live registration freshness.
 
+Keep comparable management flows consistent across product frontends where
+their needs allow it. Align section navigation, list and filter behavior, detail
+and edit forms, unsaved-change handling, and status language by policy. Portal
+owns its components and does not depend on a shared Vuetify package.
+
 The frontend uses OpenID Connect Authorization Code with PKCE. Tokens stay in
 memory and are sent as bearer tokens to the API. A development-only mock sign-in
 is available for preview; it is gated to the Vite development server and does
