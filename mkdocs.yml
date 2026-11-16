@@ -63,10 +63,13 @@ nav:
           - Python models: projects/common/index.md
           - Credential model: projects/common/model.md
           - Migrations: projects/common/migrations.md
-          - Protobuf library: projects/protobuf/index.md
-          - Protobuf configuration: projects/protobuf/configuration.md
-          - Protobuf deployment: projects/protobuf/deployment.md
-          - Protobuf operations: projects/protobuf/operations.md
+  - Protobuf:
+      - Overview: projects/protobuf/index.md
+      - Configuration: projects/protobuf/configuration.md
+      - Deployment: projects/protobuf/deployment.md
+      - Operations: projects/protobuf/operations.md
+      - Development: projects/protobuf/development.md
+      - Troubleshooting: projects/protobuf/troubleshooting.md
   - Discovery:
       - Overview: discovery/index.md
       - DNS directory:
@@ -91,7 +94,6 @@ nav:
           - HTTP registrar: projects/http/development.md
           - Central Credential System: projects/central-auth/development.md
           - Shared Python models: projects/common/development.md
-          - Protobuf library: projects/protobuf/development.md
       - Discovery:
           - DNS directory: projects/dns/development.md
   - Troubleshooting:
@@ -104,7 +106,6 @@ nav:
           - HTTP registrar: projects/http/troubleshooting.md
           - Central Credential System: projects/central-auth/troubleshooting.md
           - Shared Python models: projects/common/troubleshooting.md
-          - Protobuf library: projects/protobuf/troubleshooting.md
       - Discovery:
           - DNS directory: projects/dns/troubleshooting.md
   - Reference:
