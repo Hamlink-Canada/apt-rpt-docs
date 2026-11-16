@@ -25,8 +25,8 @@ discovery. These components are separate and can be introduced in stages.
 
 1. Prepare the database and apply shared `pyCommon` migrations. Apply Portal's
    migrations after the shared schema is available.
-2. Configure and deploy the [Portal backend](projects/portal/backend.md) and
-   [frontend](projects/portal/frontend.md). Configure OIDC and route the
+2. Configure and deploy the [Portal backend](projects/portal/backend/deployment.md) and
+   [frontend](projects/portal/frontend/deployment.md). Configure OIDC and route the
    management site's `/api` requests to the backend.
 3. Deploy [Central Auth](projects/central-auth/deployment.md) if using gRPC
    lookups. Give it read-only access to the shared credential table and give
