@@ -38,13 +38,11 @@ nav:
           - Deployment: projects/portal/backend/deployment.md
           - Configuration: projects/portal/backend/configuration.md
           - Operations: projects/portal/backend/operations.md
-          - Development: projects/portal/backend/development.md
       - Frontend:
           - Overview: projects/portal/frontend/index.md
           - Deployment: projects/portal/frontend/deployment.md
           - Configuration: projects/portal/frontend/configuration.md
           - Operations: projects/portal/frontend/operations.md
-          - Development: projects/portal/frontend/development.md
   - Registration:
       - IAX registration:
           - Overview: projects/iax/index.md
@@ -52,30 +50,25 @@ nav:
           - Authentication and limits: projects/iax/authentication.md
           - Configuration: projects/iax/configuration.md
           - Operations: projects/iax/operations.md
-          - Development: projects/iax/development.md
       - HTTP registration:
           - Overview: projects/http/index.md
           - Protocol: projects/http/protocol.md
           - Authentication and limits: projects/http/authentication.md
           - Configuration: projects/http/configuration.md
           - Operations: projects/http/operations.md
-          - Development: projects/http/development.md
       - Central Credential System:
           - Overview: projects/central-auth/index.md
           - Configuration: projects/central-auth/configuration.md
           - Operations and health: projects/central-auth/operations.md
           - Backend modules: projects/central-auth/backends.md
-          - Development: projects/central-auth/development.md
       - Shared data and protocol:
           - Python models: projects/common/index.md
           - Credential model: projects/common/model.md
           - Migrations: projects/common/migrations.md
-          - Python development: projects/common/development.md
           - Protobuf library: projects/protobuf/index.md
           - Protobuf configuration: projects/protobuf/configuration.md
           - Protobuf deployment: projects/protobuf/deployment.md
           - Protobuf operations: projects/protobuf/operations.md
-          - Protobuf development: projects/protobuf/development.md
   - Discovery:
       - Overview: discovery/index.md
       - DNS directory:
@@ -83,7 +76,6 @@ nav:
           - Configuration: projects/dns/configuration.md
           - Operations: projects/dns/operations.md
           - Protocol: projects/dns/protocol.md
-          - Development: projects/dns/development.md
   - Deployment:
       - Deployment plan: getting-started.md
       - Portal backend: projects/portal/backend/deployment.md
@@ -94,6 +86,15 @@ nav:
       - Central Credential System: projects/central-auth/deployment.md
       - Shared Python models:
           - Overview: projects/common/index.md
+  - Development:
+      - Portal backend: projects/portal/backend/development.md
+      - Portal frontend: projects/portal/frontend/development.md
+      - IAX registrar: projects/iax/development.md
+      - HTTP registrar: projects/http/development.md
+      - Central Credential System: projects/central-auth/development.md
+      - Shared Python models: projects/common/development.md
+      - Protobuf library: projects/protobuf/development.md
+      - DNS directory: projects/dns/development.md
   - Reference:
       - System architecture: components.md
       - Shared configuration: configuration.md

@@ -38,3 +38,8 @@ that branch once per workflow run so test and image jobs use the same revision.
 Editable sibling checkouts support coordinated local development. Update lockfiles
 when dependency metadata changes. Keep application code, configuration, and
 authentication implementations in their service projects.
+
+Consumer container builds can use the pinned public library revision as a named
+Docker Buildx context, or a local sibling checkout when developing library changes.
+See the HTTP registrar, IAX registrar, and DNS directory development guides for
+their image-build commands.

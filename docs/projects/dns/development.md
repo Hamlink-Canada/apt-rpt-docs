@@ -21,4 +21,19 @@ CI checks Python 3.13 and 3.14 and is configured to build and check runtime impo
 on Linux AMD64 and ARM64. Version tags publish versioned images and commit-SHA tags;
 stable releases also update `latest`. Pull requests do not publish images. Python
 packages are not published to PyPI.
-See [requirements and image builds](deployment.md#build-an-image).
+
+## Build an image
+
+From the service repository checkout, with Docker Buildx and Python 3.13+ installed:
+
+```sh
+PROTOBUF_REV=$(python3 scripts/dependency.py)
+docker buildx build --load \
+  --build-context "rpt_protobuf=https://github.com/Hamlink-Canada/rpt_protobuf.git#${PROTOBUF_REV}" \
+  --tag rpt-dnsserver:local .
+```
+
+This fetches the public protobuf dependency from its `main` branch. CI resolves that
+branch once per run and uses the same revision for its test and image jobs. The image
+runs as UID/GID 10001 and starts `rpt-dns`. Configuration files mounted into the
+container must be readable by that user.

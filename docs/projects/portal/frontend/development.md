@@ -32,3 +32,13 @@ Create the static production bundle with `npm run build`. The output contains
 the main application and `silent-renew.html`; the Docker image serves the
 bundle with Nginx. Runtime values are injected when the container starts, so a
 single production bundle can be configured for different deployments.
+
+### Production image
+
+Build the generic Nginx image from the `Portal-Frontend` checkout:
+
+```sh
+docker build -t portal-frontend .
+```
+
+Use this image in a deployment as described in [Deployment](deployment.md).

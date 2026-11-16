@@ -6,12 +6,8 @@ image can serve different Portal deployments.
 
 ## Image and network
 
-Build the image from the `Portal-Frontend` checkout:
-
-```sh
-docker build -t portal-frontend .
-```
-
+Use the Portal frontend image built from the `Portal-Frontend` project. Image
+build instructions are in [Development](development.md#production-image).
 The container serves the SPA on port `8080` as UID 101. It includes `/healthz`
 for a basic web-server check, serves `/config.json` without browser caching,
 and falls back to `index.html` for application routes. It does not proxy `/api`.
