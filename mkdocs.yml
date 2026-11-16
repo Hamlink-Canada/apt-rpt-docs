@@ -84,8 +84,6 @@ nav:
       - HTTP registrar: projects/http/deployment.md
       - DNS directory: projects/dns/deployment.md
       - Central Credential System: projects/central-auth/deployment.md
-      - Shared Python models:
-          - Overview: projects/common/index.md
   - Development:
       - Portal backend: projects/portal/backend/development.md
       - Portal frontend: projects/portal/frontend/development.md
