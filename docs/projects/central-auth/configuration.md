@@ -10,6 +10,19 @@ Each setting below can also be written as its lowercase TOML path, for example
 `RPT_TLS__CERT` as `tls.cert`. Store bearer tokens, private keys, database
 passwords, and other secret values in deployment secret storage.
 
+!!! warning "Required for an authenticated production service"
+    - **TLS:** Set `RPT_TLS__CERT` and `RPT_TLS__KEY`. The development-only
+      `RPT_TLS__INSECURE=true` option is not suitable for production.
+    - **Authorized identities:** Configure `RPT_AUTH__IDENTITIES` with a
+      `name` and `role` for every identity. Add token digests for token
+      authentication or certificate SANs for mutual TLS. Keep a separate
+      health-only probe identity.
+    - **Credential backend:** The default CSV backend needs
+      `backend.options.file` pointing to a valid credential snapshot. If using
+      the SQLAlchemy backend, set `backend.options.url` instead.
+    - **Mutual TLS:** If `RPT_AUTH__MODE` is `mtls` or `both`, also set
+      `RPT_TLS__CLIENT_CA` and map each client certificate SAN to an identity.
+
 ## Shared runtime and transport settings
 
 ### `RPT_CONFIG_DIR`

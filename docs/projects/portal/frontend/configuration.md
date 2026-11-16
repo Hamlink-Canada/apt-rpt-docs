@@ -7,6 +7,20 @@ then explicitly provided environment variables. `PORTAL_CONFIG_FILE` selects
 the file path. Vite development variables are separate and are not read by the
 production container.
 
+!!! warning "Required production runtime values"
+    The container exits if its merged runtime configuration is invalid. It
+    requires non-empty values for:
+
+    - **Management display name:** `PORTAL_MANAGEMENT_DISPLAY_NAME` or
+      `managementDisplayName` (defaults to `Portal`).
+    - **OIDC authority:** `PORTAL_OIDC_AUTHORITY` or `oidcAuthority`.
+    - **OIDC client ID:** `PORTAL_OIDC_CLIENT_ID` or `oidcClientId`.
+    - **API base URL:** `PORTAL_API_BASE_URL` or `apiBaseUrl` (defaults to
+      `/api`).
+
+    The authority, client ID, and API path must match the deployment. These
+    settings are public browser configuration and must not contain secrets.
+
 ## Production runtime settings
 
 ### `PORTAL_CONFIG_FILE`

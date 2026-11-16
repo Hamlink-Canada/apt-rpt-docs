@@ -4,6 +4,23 @@ The settings in this page apply to the IAX registrar. Values use plain TOML or t
 
 Configuration is loaded in this order: Python defaults, `settings.toml`, optional `.secrets.toml`, `RPT_` environment overrides, then explicit application overrides. Nested environment names use two underscores. `RPT_CONFIG_DIR` defaults to the process working directory. There is no dotenv autoload.
 
+!!! warning "Required for a production registration flow"
+    - **Credential lookup:** The default `RPT_AUTH__BACKEND=file` requires a
+      valid credential file at `RPT_AUTH__FILE` (the container image default is
+      `/run/secrets/credentials.csv`). If using Central Credential System
+      lookup, select `grpc`, set a reachable `RPT_GRPC__TARGET`, and configure
+      an authentication method accepted by that service.
+    - **Discovery publication:** Configure `RPT_KAFKA__BOOTSTRAP` with
+      reachable brokers and `RPT_KAFKA__TOPIC` with the provisioned topic when
+      registration events should feed Discovery. The defaults must match the
+      deployment.
+    - **Kafka SASL/TLS:** If `RPT_KAFKA__SECURITY_PROTOCOL` is set to
+      `SASL_SSL`, also set the SASL mechanism, username, password, and broker
+      CA path.
+    - **PROXY protocol:** If `RPT_PROXY_PROTOCOL__ENABLED=true`, provide at
+      least one trusted proxy address or CIDR in
+      `RPT_PROXY_PROTOCOL__TRUSTED_PROXIES`.
+
 ## Shared registrar settings
 
 ### `RPT_CONFIG_DIR`

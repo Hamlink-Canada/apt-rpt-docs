@@ -6,6 +6,13 @@ app-factory overrides. `PORTAL_CONFIG_DIR` defaults to the current working
 directory. Dotenv files are not loaded automatically. Keep credentials and
 secret values out of source control.
 
+!!! warning "Required for authenticated, database-backed operation"
+    - **Database:** Set `PORTAL_DATABASE_URL` to the Portal database after the
+      shared and Portal migrations have been applied.
+    - **OIDC validation:** Set `PORTAL_OIDC_ISSUER` and `PORTAL_API_AUDIENCE`
+      to the issuer and audience used for API access tokens. Without them,
+      authenticated API routes cannot validate access tokens.
+
 ## Runtime and application settings
 
 ### `PORTAL_CONFIG_DIR`
