@@ -36,3 +36,19 @@ API while both applications are being developed.
 Run the backend's focused test suite with `uv run pytest`. For the generated
 OpenAPI document, use the command in [Operations](operations.md#api-reference).
 The API route modules and Marshmallow schemas define the API contract.
+
+## Production image
+
+Build the generic image from the backend checkout with its sibling `pyCommon`
+checkout available as a Buildx named context:
+
+```sh
+docker buildx build --load \
+  --build-context pycommon=../pyCommon \
+  --tag portal-backend:local .
+```
+
+The image uses Python 3.13 and includes the shared and Portal migration tools.
+GitHub Actions builds and smoke-checks both AMD64 and ARM64 images; release
+images are published to GHCR. See [deployment](deployment.md) for runtime
+configuration and migration order.
