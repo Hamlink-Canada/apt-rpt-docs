@@ -7,16 +7,15 @@ repositories.
 
 ## Product and data ownership
 
-Portal is generic software; a Hamlink deployment is one use of it. Portal owns
-Site and Repeater records. Public `pyCommon` owns reusable cross-product code
-and shared Organisation profiles and credential models. Product-specific models stay
-with their products. HamClub and HamNetControl retain their names and separate
-closed-source frontend and backend projects. Portal's frontend and backend are
-also separate projects, and each frontend owns its own Vue/Vuetify components.
-Keep terminology and comparable interaction flows consistent across product
-frontends where their product needs allow it. Align navigation, browsing and
-filtering, detail and edit forms, unsaved-change handling, and status labels by
-policy; do not create a shared Vuetify package.
+Portal is generic software for managing a repeater network. Portal owns Site
+and Repeater records. Public `pyCommon` owns reusable cross-product code and
+shared Organisation profiles and credential models. Product-specific models
+stay with their products. Each product maintains separate frontend and backend
+projects, and each frontend owns its own Vue/Vuetify components. Keep
+terminology and comparable interaction flows consistent across product
+frontends where their needs allow it. Align navigation, browsing and filtering,
+detail and edit forms, unsaved-change handling, and status labels by policy; do
+not create a shared Vuetify package.
 The Portal frontend is built once as a generic Docker image; public deployment
 configuration is loaded at runtime, while TLS and backend API routing stay with
 the deployment ingress or reverse proxy.
@@ -81,7 +80,7 @@ whole topic. `rpt_protobuf` owns shared schemas and generated bindings;
 - Repeater Metadata Updater implementation details, packaging, and source
   visibility.
 - Detailed application permissions, club-role mappings, membership rules,
-  finance workflows, and HamNetControl scope.
+  finance workflows, and product-specific administrative scope.
 - Audit storage and retention, cross-product deletion cleanup, and deployment-
   specific downtime reduction.
 - Additional shared-Organisation administration commands beyond the implemented
