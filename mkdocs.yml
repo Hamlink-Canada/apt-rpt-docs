@@ -14,6 +14,8 @@ theme:
       toggle:
         icon: lucide/sun
         name: Switch to dark mode
+extra_javascript:
+  - javascripts/sidebar-accordion.js
 plugins:
   - search
 markdown_extensions:
