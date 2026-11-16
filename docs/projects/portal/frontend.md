@@ -41,10 +41,34 @@ available. `VITE_API_PROXY_TARGET` is only used by the development server.
 
 ## User experience and language
 
-The interface supports English and French. It manages Sites, Entities, and
-Repeaters, including repeater enablement and registration-password rotation.
-Passwords are revealed only when created or rotated. Admin-controlled enabled
-status is separate from live registration freshness.
+The interface supports English and French. Its main sections are Overview,
+Organisations, Sites, Repeaters, and Profile. The Organisations section is for
+shared amateur-radio organisations, including clubs, associations, societies,
+leagues, and networks. The form offers Club, Association, Society, League,
+Union, Federation, and Other. Its help text describes Club as a common label for
+local or special-interest groups and Association for regional, umbrella, or
+representative bodies; it notes that terms vary by country.
+
+An Organisation profile includes its name, type, description, website, maximum
+Site count, call signs, and Portal members. Call signs appear as Primary or
+Alternate. Alternate call signs require a primary call sign first. Portal
+members have Staff or Viewer roles. Organisation pages list Sites owned by that
+Organisation; the page also shows Site usage against its limit. Site and
+Repeater lists can be filtered by Organisation. Site ownership is presented as
+an Organisation, the current user's account, or another user. A Repeater
+Association groups linked repeaters and is managed separately from Organisations.
+
+The Sites section manages physical locations, their Site IDs, location details,
+and short or extended Node ID numbering. Site creation uses a Maidenhead grid
+square and can accept a more precise point within it. The Repeaters section
+manages call sign, frequency, tone, administrative enablement, and registration
+credentials. A new or rotated registration secret is shown once. Administrative
+enablement is separate from live registration freshness.
+
+Keep comparable management flows consistent across product frontends where
+their needs allow it. Align section navigation, list and filter behavior, detail
+and edit forms, unsaved-change handling, and status language by policy. Portal
+owns its components and does not depend on a shared Vuetify package.
 
 The frontend uses OpenID Connect Authorization Code with PKCE. Tokens stay in
 memory and are sent as bearer tokens to the API. A development-only mock sign-in
