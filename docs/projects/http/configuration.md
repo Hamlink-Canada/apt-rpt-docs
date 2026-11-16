@@ -1,112 +1,351 @@
-# Configuration
+# HTTP registrar configuration
 
+The settings in this page apply to the HTTP registrar. Values use plain TOML or the matching environment variable. Secret tokens, passwords, keys, and real credential paths should come from deployment secret storage.
 
-| Environment variable | Default | Purpose |
-| --- | --- | --- |
-| `RPT_KAFKA__BOOTSTRAP` | `localhost:9092` | Kafka bootstrap address. |
-| `RPT_KAFKA__TOPIC` | `rpt.registrations` | Topic shared with the DNS directory. |
-| `RPT_SERVER_ID` | `registrar-1` in the image settings | Identifier included in registrations. |
-| `RPT_REFRESH` | `60` | Refresh value returned to clients, in seconds. |
-| `RPT_LIFETIME` | `180` | Registration validity, in seconds. |
-| `RPT_AUTH__BACKEND` | `file` | Credential source: `file` or `grpc`. |
-| `RPT_AUTH__FILE` | `/run/secrets/credentials.csv` in the image settings | Local credential file. |
-| `RPT_HTTP__MAX_BODY` | `16384` | Maximum request body size in bytes. |
+Configuration is loaded in this order: Python defaults, `settings.toml`, optional `.secrets.toml`, `RPT_` environment overrides, then explicit application overrides. Nested environment names use two underscores. `RPT_CONFIG_DIR` defaults to the process working directory. There is no dotenv autoload.
 
-Dynaconf reads `settings.toml` and optional `.secrets.toml` from the working directory,
-then applies `RPT_` environment overrides. Nested settings use two underscores.
-To mount your own files at `/config`, set `RPT_CONFIG_DIR=/config`. Use plain TOML
-without environment sections, and absolute paths for mounted credential files.
+## Shared registrar settings
 
-The `grpc` backend retrieves passwords from a compatible central credential service;
-HTTP password verification still happens here. Central Auth implements the credential lookup server. Clients require verified TLS and a service token or
-client certificate. Successful lookups are cached for 60 seconds by default, with
-up to 4096 entries. During an outage, unexpired cached credentials still work;
-expired entries and new lookups fail closed. Password rotation can take up to the
-cache TTL to become visible. There is no automatic fallback to the CSV file.
+### `RPT_CONFIG_DIR`
 
-See [authentication and limits](authentication.md) for gRPC settings, certificate
-configuration, cache controls, and rate limits. Limits are per process; use shared
-ingress controls when running multiple instances. Allow for several nodes sharing
-one source address when setting limits.
+**Optional:** Yes.
 
+**Default:** `.` (the current working directory).
 
-## Full settings reference
+Selects the directory containing `settings.toml` and optional `.secrets.toml`. Dotenv files are not loaded. Mounted files should use absolute paths for credentials and certificates.
 
-These are Python defaults. See [shared configuration](../../configuration.md) for
-file precedence and the two registrar image overrides. Rates are per minute;
-TTLs, deadlines, refresh, lifetime, skew, and timeouts are seconds. Sizes count
-entries except HTTP body size, which counts bytes. Empty strings mean unset.
+### `RPT_ENVIRONMENT`
 
-| Environment variable | Python default |
-| --- | --- |
-| `RPT_ENVIRONMENT` | `'production'` |
-| `RPT_HOST` | `'0.0.0.0'` |
-| `RPT_PORT` | `5000` |
-| `RPT_REFRESH` | `60` |
-| `RPT_LIFETIME` | `180` |
-| `RPT_SERVER_ID` | `'registration'` |
-| `RPT_AUTH__BACKEND` | `'file'` |
-| `RPT_AUTH__FILE` | `'credentials.csv'` |
-| `RPT_AUTH__CACHE_SIZE` | `4096` |
-| `RPT_AUTH__CACHE_TTL` | `60` |
-| `RPT_GRPC__TARGET` | `'localhost:50051'` |
-| `RPT_GRPC__DEADLINE` | `2` |
-| `RPT_GRPC__CONCURRENCY` | `16` |
-| `RPT_GRPC__INSECURE` | `false` |
-| `RPT_GRPC__TOKEN` | `''` |
-| `RPT_GRPC__CA` | `''` |
-| `RPT_GRPC__CLIENT_CERT` | `''` |
-| `RPT_GRPC__CLIENT_KEY` | `''` |
-| `RPT_KAFKA__BOOTSTRAP` | `'localhost:9092'` |
-| `RPT_KAFKA__TOPIC` | `'rpt.registrations'` |
-| `RPT_KAFKA__TIMEOUT` | `5` |
-| `RPT_HTTP__MAX_BODY` | `16384` |
-| `RPT_HTTP__TRUSTED_PROXIES` | `[]` |
-| `RPT_HTTP__PROXY_HOPS` | `1` |
-| `RPT_LIMITS__STATE_SIZE` | `16384` |
-| `RPT_LIMITS__GLOBAL_RATE` | `60000` |
-| `RPT_LIMITS__GLOBAL_BURST` | `2000` |
-| `RPT_LIMITS__SOURCE_RATE` | `600` |
-| `RPT_LIMITS__SOURCE_BURST` | `120` |
-| `RPT_LIMITS__FAIL_IP_RATE` | `30` |
-| `RPT_LIMITS__FAIL_IP_BURST` | `30` |
-| `RPT_LIMITS__FAIL_PAIR_RATE` | `5` |
-| `RPT_LIMITS__FAIL_PAIR_BURST` | `5` |
-| `RPT_LIMITS__REFRESH_RATE` | `6` |
-| `RPT_LIMITS__REFRESH_BURST` | `3` |
+**Optional:** Yes.
 
-HTTP starts Gunicorn with one worker and 32 threads. The IAX worker, challenge,
-and call-state settings in the common defaults do not control HTTP concurrency.
+**Default:** `production`.
 
-## Credential RPC connection
+Names the runtime environment. The insecure gRPC client mode is allowed only when this is `development`.
 
-Central Auth implements the credential lookup server. When the deployment provides an endpoint,
-configure verified TLS and a service identity, for example:
+### `RPT_HOST`
 
-```toml
-[auth]
-backend = "grpc"
-cache_size = 4096
-cache_ttl = 60
+**Optional:** Yes.
 
-[grpc]
-target = "auth.example.org:50051"
-ca = "/run/secrets/ca.pem"
-client_cert = "/run/secrets/registrar.pem"
-client_key = "/run/secrets/registrar-key.pem"
-deadline = 2
-concurrency = 16
-```
+**Default:** `0.0.0.0`.
 
-Omit `ca` to use system roots. A service token can replace the certificate pair;
-store `grpc.token` in `.secrets.toml` or supply `RPT_GRPC__TOKEN` through your secret
-management system. Do not commit it. `deadline` bounds an RPC and `concurrency`
-caps in-flight lookups per process. `auth.cache_size` and `auth.cache_ttl` bound the
-successful credential cache. Insecure transport requires both
-`RPT_ENVIRONMENT=development` and `RPT_GRPC__INSECURE=true`.
+Interface address on which the registrar listens.
 
-`RPT_KAFKA__TIMEOUT` bounds publication confirmation. `RPT_SERVER_ID` identifies
-the originating registrar in DNS metadata. `RPT_LIFETIME` must exceed `RPT_REFRESH`.
-Rate and burst settings are described on the [authentication page](authentication.md).
-`LIMITS.STATE_SIZE` bounds rate-limit keys; IAX `LIMITS.CALL_SIZE` bounds transactions
-and `LIMITS.CHALLENGE_TTL` bounds the challenge verification window.
+### `RPT_PORT`
+
+**Optional:** Yes.
+
+**Default:** `5000`.
+
+TCP port used by the HTTP registrar. It must be between 1 and 65535.
+
+### `RPT_SERVER_ID`
+
+**Optional:** Yes.
+
+**Default:** `registration`.
+
+Identifies the registrar in published registration records and DNS metadata. The container image settings override this Python default with `registrar-1`; configure a unique ID per deployment instance.
+
+### `RPT_REFRESH`
+
+**Optional:** Yes.
+
+**Default:** `60` seconds.
+
+Refresh Interval advertised to nodes. Nodes resend registration details at this interval.
+
+### `RPT_LIFETIME`
+
+**Optional:** Yes.
+
+**Default:** `180` seconds.
+
+Registration Lifetime placed in published registration data. It must be greater than `RPT_REFRESH`.
+
+## Credential lookup
+
+### `RPT_AUTH__BACKEND`
+
+**Optional:** Yes; required when using the file backend.
+
+**Default:** `file`.
+
+Selects the credential source: `file` or `grpc`. The service does not fall back between them.
+
+### `RPT_AUTH__FILE`
+
+**Optional:** Yes; required when using the file backend.
+
+**Default:** `credentials.csv`.
+
+Path to the local `node_id,password` credential file when the file backend is selected. The image settings override this with `/run/secrets/credentials.csv`.
+
+### `RPT_AUTH__CACHE_SIZE`
+
+**Optional:** Yes; used when the gRPC backend is selected.
+
+**Default:** 4096 entries.
+
+Maximum number of successful gRPC credential lookups retained in this process.
+
+### `RPT_AUTH__CACHE_TTL`
+
+**Optional:** Yes; used when the gRPC backend is selected.
+
+**Default:** 60 seconds.
+
+How long a successful gRPC credential lookup may be reused. Password rotations can take up to this long to reach an existing registrar.
+
+### `RPT_GRPC__TARGET`
+
+**Optional:** Yes; used when the gRPC backend is selected.
+
+**Default:** `localhost:50051`.
+
+Host and port of the Central Credential System when the gRPC backend is selected.
+
+### `RPT_GRPC__DEADLINE`
+
+**Optional:** Yes; used when the gRPC backend is selected.
+
+**Default:** 2 seconds.
+
+Maximum time allowed for one credential lookup RPC.
+
+### `RPT_GRPC__CONCURRENCY`
+
+**Optional:** Yes; used when the gRPC backend is selected.
+
+**Default:** 16 requests.
+
+Maximum simultaneous credential lookup RPCs per registrar process.
+
+### `RPT_GRPC__INSECURE`
+
+**Optional:** Yes; used when the gRPC backend is selected.
+
+**Default:** `false`.
+
+Use plaintext gRPC instead of TLS. This is permitted only when `RPT_ENVIRONMENT=development`; production should use verified TLS.
+
+### `RPT_GRPC__TOKEN`
+
+**Optional:** Yes; used when the gRPC backend is selected.
+
+**Default:** Empty.
+
+Optional bearer service token for Central Auth. Store it in secret storage, not a committed settings file.
+
+### `RPT_GRPC__CA`
+
+**Optional:** Yes; used when the gRPC backend is selected.
+
+**Default:** Empty (system roots).
+
+Optional path to the CA certificate used to verify the Central Auth server. If unset, the platform trust store is used.
+
+### `RPT_GRPC__CLIENT_CERT`
+
+**Optional:** Yes; used when Kafka security is enabled.
+
+**Default:** Empty.
+
+Optional client certificate for mutual TLS. Configure it with `RPT_GRPC__CLIENT_KEY` when Central Auth requires a client certificate.
+
+### `RPT_GRPC__CLIENT_KEY`
+
+**Optional:** Yes; required when Kafka security is enabled.
+
+**Default:** Empty.
+
+Optional private key matching `RPT_GRPC__CLIENT_CERT`. Protect it as a secret.
+
+## Kafka publication
+
+### `RPT_KAFKA__BOOTSTRAP`
+
+**Optional:** Yes; required when Kafka security is enabled.
+
+**Default:** `localhost:9092`.
+
+Comma-separated Kafka bootstrap broker addresses used to connect to the event stream.
+
+### `RPT_KAFKA__TOPIC`
+
+**Optional:** Yes; required when Kafka security is enabled.
+
+**Default:** `rpt.registrations`.
+
+Kafka topic to which this registrar publishes registration events.
+
+### `RPT_KAFKA__TIMEOUT`
+
+**Optional:** Yes; required when Kafka security is enabled.
+
+**Default:** 5 seconds.
+
+Maximum time to wait for Kafka publication confirmation.
+
+### `RPT_KAFKA__SECURITY_PROTOCOL`
+
+**Optional:** Yes.
+
+**Default:** Empty (plaintext).
+
+Optional Kafka transport security protocol. When set, the supported value is `SASL_SSL` and the SASL/TLS settings below are required.
+
+### `RPT_KAFKA__SASL_MECHANISM`
+
+**Optional:** Yes.
+
+**Default:** Empty.
+
+SASL mechanism used for Kafka authentication. Set to `SCRAM-SHA-512` when `RPT_KAFKA__SECURITY_PROTOCOL` is enabled.
+
+### `RPT_KAFKA__SASL_USERNAME`
+
+**Optional:** Yes.
+
+**Default:** Empty.
+
+Kafka SASL username. Required when SASL/TLS authentication is enabled.
+
+### `RPT_KAFKA__SASL_PASSWORD`
+
+**Optional:** Yes.
+
+**Default:** Empty.
+
+Kafka SASL password. Required when SASL/TLS authentication is enabled; store it in secret storage.
+
+### `RPT_KAFKA__SSL_CA_LOCATION`
+
+**Optional:** Yes.
+
+**Default:** Empty.
+
+Path to the CA certificate used to verify the Kafka broker certificates when SASL/TLS is enabled.
+
+## HTTP ingress
+
+### `RPT_HTTP__MAX_BODY`
+
+**Optional:** Yes.
+
+**Default:** 16384 bytes.
+
+Maximum accepted size of an HTTP registration request body.
+
+### `RPT_HTTP__TRUSTED_PROXIES`
+
+**Optional:** Yes.
+
+**Default:** Empty list (`[]`).
+
+Proxy IP addresses or CIDRs trusted to supply the original client address in forwarding headers. Forwarded addresses are ignored when this is empty.
+
+### `RPT_HTTP__PROXY_HOPS`
+
+**Optional:** Yes.
+
+**Default:** 1.
+
+Number of trusted proxy hops used to select the original client address. It must be positive when trusted proxies are configured.
+
+## Abuse and capacity limits
+
+### `RPT_LIMITS__STATE_SIZE`
+
+**Optional:** Yes.
+
+**Default:** 16384 keys.
+
+Maximum number of rate-limit and failure-tracking keys retained by the process.
+
+### `RPT_LIMITS__GLOBAL_RATE`
+
+**Optional:** Yes.
+
+**Default:** 60000 events/minute.
+
+Steady-state allowance for registration events across all sources.
+
+### `RPT_LIMITS__GLOBAL_BURST`
+
+**Optional:** Yes.
+
+**Default:** 2000 events.
+
+Short burst allowance above the global registration rate.
+
+### `RPT_LIMITS__SOURCE_RATE`
+
+**Optional:** Yes.
+
+**Default:** 600 events/minute.
+
+Steady-state registration allowance for each source address.
+
+### `RPT_LIMITS__SOURCE_BURST`
+
+**Optional:** Yes.
+
+**Default:** 120 events.
+
+Short burst allowance for one source address.
+
+### `RPT_LIMITS__FAIL_IP_RATE`
+
+**Optional:** Yes.
+
+**Default:** 30 failures/minute.
+
+Failure-rate threshold tracked per source address to limit repeated invalid credentials.
+
+### `RPT_LIMITS__FAIL_IP_BURST`
+
+**Optional:** Yes.
+
+**Default:** 30 failures.
+
+Short failure burst allowance per source address.
+
+### `RPT_LIMITS__FAIL_PAIR_RATE`
+
+**Optional:** Yes.
+
+**Default:** 5 failures/minute.
+
+Failure-rate threshold for a source address and Node ID pair.
+
+### `RPT_LIMITS__FAIL_PAIR_BURST`
+
+**Optional:** Yes.
+
+**Default:** 5 failures.
+
+Short failure burst allowance for one source address and Node ID pair.
+
+### `RPT_LIMITS__REFRESH_RATE`
+
+**Optional:** Yes.
+
+**Default:** 6 refreshes/minute.
+
+Steady-state refresh allowance for a source address and Node ID pair.
+
+### `RPT_LIMITS__REFRESH_BURST`
+
+**Optional:** Yes.
+
+**Default:** 3 refreshes.
+
+Short refresh burst allowance for a source address and Node ID pair.
+
+### `RPT_LIMITS__WORKERS`
+
+**Optional:** Yes.
+
+**Default:** 32 workers.
+
+Maximum concurrent protocol or HTTP request workers for the registrar process.
