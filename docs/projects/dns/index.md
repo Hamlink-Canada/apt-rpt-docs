@@ -14,7 +14,8 @@ registrations.
 
 - [Requirements and deployment](deployment.md)
 - [Configuration](configuration.md)
-- [Operation and troubleshooting](operations.md)
+- [Operations](operations.md)
 - [Development](development.md)
+- [Troubleshooting](troubleshooting.md)
 
 Source: [dnsserver](https://github.com/Hamlink-Canada/dnsserver).

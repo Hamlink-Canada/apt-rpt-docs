@@ -16,7 +16,8 @@ If you are deploying a service, start with its own instructions:
 
 - [Requirements and deployment](deployment.md)
 - [Configuration](configuration.md)
-- [Operation and troubleshooting](operations.md)
+- [Operations and schema contracts](operations.md)
 - [Development](development.md)
+- [Troubleshooting](troubleshooting.md)
 
 Source: [rpt_protobuf](https://github.com/Hamlink-Canada/rpt_protobuf).

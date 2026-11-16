@@ -17,6 +17,7 @@ have administrative enablement separate from registration freshness.
 - [Configuration](configuration.md)
 - [Operations](operations.md)
 - [Development](development.md)
+- [Troubleshooting](troubleshooting.md)
 
 ## Interaction patterns
 

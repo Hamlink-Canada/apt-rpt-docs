@@ -83,14 +83,30 @@ nav:
       - DNS directory: projects/dns/deployment.md
       - Central Credential System: projects/central-auth/deployment.md
   - Development:
-      - Portal backend: projects/portal/backend/development.md
-      - Portal frontend: projects/portal/frontend/development.md
-      - IAX registrar: projects/iax/development.md
-      - HTTP registrar: projects/http/development.md
-      - Central Credential System: projects/central-auth/development.md
-      - Shared Python models: projects/common/development.md
-      - Protobuf library: projects/protobuf/development.md
-      - DNS directory: projects/dns/development.md
+      - Portal:
+          - Portal backend: projects/portal/backend/development.md
+          - Portal frontend: projects/portal/frontend/development.md
+      - Registration:
+          - IAX registrar: projects/iax/development.md
+          - HTTP registrar: projects/http/development.md
+          - Central Credential System: projects/central-auth/development.md
+          - Shared Python models: projects/common/development.md
+          - Protobuf library: projects/protobuf/development.md
+      - Discovery:
+          - DNS directory: projects/dns/development.md
+  - Troubleshooting:
+      - Overview: troubleshooting/index.md
+      - Portal:
+          - Portal backend: projects/portal/backend/troubleshooting.md
+          - Portal frontend: projects/portal/frontend/troubleshooting.md
+      - Registration:
+          - IAX registrar: projects/iax/troubleshooting.md
+          - HTTP registrar: projects/http/troubleshooting.md
+          - Central Credential System: projects/central-auth/troubleshooting.md
+          - Shared Python models: projects/common/troubleshooting.md
+          - Protobuf library: projects/protobuf/troubleshooting.md
+      - Discovery:
+          - DNS directory: projects/dns/troubleshooting.md
   - Reference:
       - System architecture: components.md
       - Shared configuration: configuration.md

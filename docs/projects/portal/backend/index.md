@@ -17,6 +17,7 @@ observation current from registration events.
 - [Configuration](configuration.md)
 - [Operations](operations.md)
 - [Development](development.md)
+- [Troubleshooting](troubleshooting.md)
 
 ## Data boundaries
 

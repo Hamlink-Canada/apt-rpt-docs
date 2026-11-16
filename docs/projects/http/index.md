@@ -13,7 +13,8 @@ client connects over HTTPS, so TLS must terminate at your proxy.
 
 - [Requirements and deployment](deployment.md)
 - [Configuration](configuration.md)
-- [Operation and troubleshooting](operations.md)
+- [Operations](operations.md)
 - [Development](development.md)
+- [Troubleshooting](troubleshooting.md)
 
 Source: [pyHTTP-Register](https://github.com/Hamlink-Canada/pyHTTP-Register).

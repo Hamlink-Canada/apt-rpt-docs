@@ -13,7 +13,7 @@ the deployment. Separate networks with overlapping IDs need separate deployments
 
 Published version `1.0.1` is available for deployments; use the service repository's
 release workflow for image tags and use a digest to pin an exact artifact. Follow
-[deployment](deployment.md), [configuration](configuration.md), and
-[operation](operations.md). See [backend modules](backends.md) to use an existing
-database without adopting the shared schema, and [development](development.md) for
-validation and extension details.
+[deployment](deployment.md), [configuration](configuration.md), [operations](operations.md),
+[development](development.md), and [troubleshooting](troubleshooting.md). See
+[backend modules](backends.md) to use an existing database without adopting the
+shared schema.

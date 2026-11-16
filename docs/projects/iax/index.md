@@ -15,7 +15,8 @@ use PROXY protocol v2 with a trusted UDP proxy.
 
 - [Requirements and deployment](deployment.md)
 - [Configuration](configuration.md)
-- [Operation and troubleshooting](operations.md)
+- [Operations](operations.md)
 - [Development](development.md)
+- [Troubleshooting](troubleshooting.md)
 
 Source: [pyIAX-Register](https://github.com/Hamlink-Canada/pyIAX-Register).
