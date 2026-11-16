@@ -79,8 +79,6 @@ whole topic. `rpt_protobuf` owns shared schemas and generated bindings;
 
 - Repeater Metadata Updater implementation details, packaging, and source
   visibility.
-- Detailed application permissions, club-role mappings, membership rules,
-  finance workflows, and product-specific administrative scope.
 - Audit storage and retention, cross-product deletion cleanup, and deployment-
   specific downtime reduction.
 - Additional shared-Organisation administration commands beyond the implemented
