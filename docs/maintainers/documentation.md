@@ -1,9 +1,11 @@
 # Maintain and publish this site
 
 This repository uses Zensical. Markdown lives under `docs/`;
-`mkdocs.yml` defines the navigation, project-page URL, theme, and link validation. Each
-service has deployment, configuration, operation, protocol, and development pages. The
-protobuf section documents the library and contracts rather than a standalone service.
+`mkdocs.yml` defines the navigation, project-page URL, theme, and link validation. The
+sidebar closes sibling sections when a new section is opened to keep the long navigation
+compact. Each service has deployment, configuration, operation, protocol, and development
+pages. The protobuf section documents the library and contracts rather than a standalone
+service.
 
 ## Edit and preview
 
