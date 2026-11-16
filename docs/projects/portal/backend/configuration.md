@@ -6,12 +6,13 @@ app-factory overrides. `PORTAL_CONFIG_DIR` defaults to the current working
 directory. Dotenv files are not loaded automatically. Keep credentials and
 secret values out of source control.
 
-!!! warning "Required for authenticated, database-backed operation"
+!!! warning "Required for production startup"
     - **Database:** Set `PORTAL_DATABASE_URL` to the Portal database after the
       shared and Portal migrations have been applied.
     - **OIDC validation:** Set `PORTAL_OIDC_ISSUER` and `PORTAL_API_AUDIENCE`
-      to the issuer and audience used for API access tokens. Without them,
-      authenticated API routes cannot validate access tokens.
+      to the issuer and audience used for API access tokens. Production startup
+      fails when any of these three values is missing. Tests and the explicit
+      development preview mode are exempt.
 
 ## Runtime and application settings
 
@@ -21,7 +22,8 @@ secret values out of source control.
 **Default:** `.` (the current working directory).
 
 Selects the directory containing optional `settings.toml` and `.secrets.toml`
-files. Environment variables override file values.
+files. Environment variables override file values. The production image sets
+this to `/config`, so these files may be mounted read-only there.
 
 ### `PORTAL_DISPLAY_NAME`
 
@@ -63,18 +65,37 @@ Database before starting the service.
 **Optional:** Yes.
 **Default:** `127.0.0.1`.
 
-Host/interface used by `python -m portal_backend`, the local development
-server. Production WSGI servers receive their bind address from deployment
-configuration.
+Host/interface used by `python -m portal_backend` and the production image's
+Gunicorn server. The local development default is `127.0.0.1`; the production
+image defaults to `0.0.0.0` so the service is reachable through its container
+network.
 
 ### `PORTAL_BIND_PORT`
 
 **Optional:** Yes.
 **Default:** `5000`.
 
-Port used by the local development server. It must be an integer from 1 through
-65535. Production WSGI servers receive their listen port from deployment
-configuration.
+Port used by the local development server and production image. The default is
+`5000`; it must be an integer from 1 through 65535.
+
+### `WEB_CONCURRENCY`
+
+**Optional:** Yes.
+**Default in the production image:** `2`.
+
+Sets the number of synchronous Gunicorn workers. Adjust it to the deployment's
+CPU and memory capacity.
+
+### `PORTAL_MIGRATION_DATABASE_URL`
+
+**Optional:** Yes.
+**Default:** Unset; `portal-migrate` falls back to `PORTAL_DATABASE_URL`.
+
+Writable SQLAlchemy URL used by the explicit Portal migration command. Prefer a
+mounted URL file with `portal-migrate upgrade --url-file PATH` so credentials
+do not need to be placed in environment values. If a URL file is supplied, it
+takes precedence over this variable; this variable takes precedence over the
+application URL. Migration commands are never run automatically at app startup.
 
 ## Authentication settings
 
