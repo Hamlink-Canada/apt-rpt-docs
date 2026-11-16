@@ -1,13 +1,13 @@
 # Portal backend
 
 The Portal backend is a Python API built with Flask, SQLAlchemy, and Alembic. It
-owns Portal's Site and Repeater data and exposes management APIs for Entities,
+owns Portal's Site and Repeater data and exposes management APIs for Organisations,
 Sites, and Repeaters. See the [Portal overview](../../portal/index.md) for the
 system boundary and domain terms.
 
 ## Database and migrations
 
-Portal uses the shared `pyCommon` schema for Entity profiles and registration
+Portal uses the shared `pyCommon` schema for Organisation profiles and registration
 credentials, alongside its own tables. Apply the `pyCommon` migrations first,
 then Portal's Alembic migrations, using separate migration credentials as
 appropriate. The running API does not create or migrate tables at startup.

@@ -1,9 +1,10 @@
 # Glossary
 
-Terms used across Portal and the registration services.
+Terms used across Portal and the Registration and Discovery systems.
 
-**Association**: An Entity type. An Association is different from a Repeater
-Association.
+**Association**: An Organisation type, often used for a regional, umbrella, or
+representative body. Naming varies by country. A Repeater Association is a
+separate grouping of linked repeaters.
 
 **Central Credential System**: A service that provides registration passwords
 to trusted registrars. It does not handle the HTTP or IAX registration protocol.
@@ -12,14 +13,19 @@ to trusted registrars. It does not handle the HTTP or IAX registration protocol.
 reachable repeaters. DNS is the current discovery interface; more services may
 be added as network needs grow.
 
-**Entity**: A shared organization profile that can own Sites and be referenced
-across products. Entity type and system-maintained status are independent.
-
 **Node ID**: The numeric identity used by a repeater during registration. Portal
 assigns it to a Repeater.
 
-**Portal**: The generic management application for Sites, Repeaters, and Entity
-profiles. A particular network supplies its display name and hostnames.
+**Organisation**: A shared amateur-radio organisation profile that can own
+Sites and be referenced across products. Portal supports Club, Association,
+Society, League, Union, Federation, and Other types. An Organisation's type is
+independent of whether it is system-maintained.
+
+**Portal**: The generic management application for Sites, Repeaters, and
+Organisations. A particular network supplies its display name and hostnames.
+
+**Portal member**: A user associated with an Organisation in Portal. The
+frontend supports Staff and Viewer roles.
 
 **PROXY protocol**: A transport metadata format that carries original client and
 destination endpoints through a trusted proxy. The IAX registrar supports PROXY
@@ -33,7 +39,7 @@ system.
 can be reached.
 
 **Registration services**: Systems that authenticate nodes and publish their
-registration observations for discovery and other consumers.
+registration observations for Discovery and other consumers.
 
 **Registration Lifetime**: The configured period used to determine DNS
 registration validity and derived current-registration freshness.
@@ -41,15 +47,15 @@ registration validity and derived current-registration freshness.
 **Registration password**: A generated shared secret that proves a node's
 identity during registration.
 
-**Runtime Portal configuration**: Public deployment settings loaded by the
-Portal browser application at startup, such as its display name and identity
-provider. It contains no secrets.
-
 **Repeater Association**: A grouping of linked repeaters, potentially maintained
-jointly by different Entities. It is not an Entity of type Association.
+jointly by different Organisations. It is not an Organisation type.
 
 **Repeater Metadata Updater**: The separate planned service that consumes
 registration events and writes the latest observed status to Portal.
+
+**Runtime Portal configuration**: Public deployment settings loaded by the
+Portal browser application at startup, such as its display name and identity
+provider. It contains no secrets.
 
 **Site**: A physical repeater location managed in Portal.
 

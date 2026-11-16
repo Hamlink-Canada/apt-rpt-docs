@@ -6,7 +6,7 @@ covers two related but separate systems:
 
 | System | Role | Start here |
 | --- | --- | --- |
-| [Portal](portal/index.md) | Human-facing management of Sites, Repeaters, and shared Entity profiles | [Portal overview](portal/index.md) |
+| [Portal](portal/index.md) | Human-facing management of Sites, Repeaters, and shared Organisation profiles | [Portal overview](portal/index.md) |
 | [Registration](architecture.md) | Authenticate nodes and publish registration observations | [Registration architecture](architecture.md) |
 | [Discovery](discovery/index.md) | Help nodes and clients find currently reachable repeaters | [Discovery overview](discovery/index.md) |
 

@@ -9,7 +9,7 @@ repositories.
 
 Portal is generic software; a Hamlink deployment is one use of it. Portal owns
 Site and Repeater records. Public `pyCommon` owns reusable cross-product code
-and shared Entity profiles and credential models. Product-specific models stay
+and shared Organisation profiles and credential models. Product-specific models stay
 with their products. HamClub and HamNetControl retain their names and separate
 closed-source frontend and backend projects. Portal's frontend and backend are
 also separate projects, and each frontend owns its own Vue/Vuetify components.
@@ -31,7 +31,7 @@ and remotes are deferred until the local project structure is reviewed.
 - **Registration Lifetime** is configured for DNS validity and derived current
   registration freshness. **Refresh Interval** is how often a node resends its
   details.
-- An **Association** is an Entity type; a **Repeater Association** groups linked
+- An **Association** is an Organisation type; a **Repeater Association** groups linked
   repeaters and is a distinct concept.
 - A Site location starts with a Maidenhead locator of at least four characters.
   Optional coordinates may refine the point if they remain within that locator.
@@ -40,15 +40,15 @@ and remotes are deferred until the local project structure is reviewed.
 - A Site may use a short Node ID for one Repeater or extended numbering for up
   to ten Repeaters, using suffixes `0` through `9`. Changing numbering may
   change an existing Repeater's Node ID, so its owner must update the device.
-- An Entity has one profile and may have no call signs or a primary call sign
+- An Organisation has one profile and may have no call signs or a primary call sign
   with additional AKA call signs. AKA call signs require a primary, are unique,
-  and may be promoted to primary. A system-maintained Entity has no user owner;
+  and may be promoted to primary. A system-maintained Organisation has no user owner;
   assigning an owner transfers it to user ownership.
 - OIDC supplies human identity to management frontends and APIs. Backend
   applications decide resource permissions from ownership and local
   authorization rules.
 - System Super Admin identities are configured through the identity provider.
-  Entity Super Admin assignments are shared data; product-specific admin
+  Organisation Super Admin assignments are shared data; product-specific admin
   assignments and club roles stay with their owning application.
 - Portal creates node passwords and writes them to the shared credential model.
   It reveals a password only on creation or rotation. Registrars validate
@@ -80,5 +80,5 @@ whole topic. `rpt_protobuf` owns shared schemas and generated bindings;
   finance workflows, and HamNetControl scope.
 - Audit storage and retention, cross-product deletion cleanup, and deployment-
   specific downtime reduction.
-- Additional shared-Entity administration commands beyond the implemented
+- Additional shared-Organisation administration commands beyond the implemented
   system-maintained reset operation.
