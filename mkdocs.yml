@@ -31,8 +31,18 @@ nav:
   - Start: index.md
   - Portal:
       - Overview: portal/index.md
-      - Backend: projects/portal/backend.md
-      - Frontend: projects/portal/frontend.md
+      - Backend:
+          - Overview: projects/portal/backend/index.md
+          - Deployment: projects/portal/backend/deployment.md
+          - Configuration: projects/portal/backend/configuration.md
+          - Operations: projects/portal/backend/operations.md
+          - Development: projects/portal/backend/development.md
+      - Frontend:
+          - Overview: projects/portal/frontend/index.md
+          - Deployment: projects/portal/frontend/deployment.md
+          - Configuration: projects/portal/frontend/configuration.md
+          - Operations: projects/portal/frontend/operations.md
+          - Development: projects/portal/frontend/development.md
   - Registration:
       - IAX registration:
           - Overview: projects/iax/index.md
@@ -74,8 +84,8 @@ nav:
           - Development: projects/dns/development.md
   - Deployment:
       - Deployment plan: getting-started.md
-      - Portal backend: projects/portal/backend.md
-      - Portal frontend: projects/portal/frontend.md
+      - Portal backend: projects/portal/backend/deployment.md
+      - Portal frontend: projects/portal/frontend/deployment.md
       - IAX registrar: projects/iax/deployment.md
       - HTTP registrar: projects/http/deployment.md
       - DNS directory: projects/dns/deployment.md
