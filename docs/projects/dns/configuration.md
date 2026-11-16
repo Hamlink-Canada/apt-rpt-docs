@@ -1,49 +1,159 @@
-# Configuration
+# DNS directory configuration
 
+Configuration is loaded in this order: Python defaults, `settings.toml`,
+optional `.secrets.toml`, `RPT_` environment overrides, then explicit
+application overrides. Nested environment names use two underscores.
+`RPT_CONFIG_DIR` defaults to the process working directory. There is no dotenv
+autoload. Use absolute paths for any mounted certificates or secrets.
 
-The settings most deployments need are:
+## Runtime and DNS listener
 
-| Environment variable | Default | Purpose |
-| --- | --- | --- |
-| `RPT_DOMAIN` | `nodes.example.org` | Domain used in node lookups. |
-| `RPT_KAFKA__BOOTSTRAP` | `localhost:9092` | Kafka bootstrap address. |
-| `RPT_KAFKA__TOPIC` | `rpt.registrations` | Topic used by the registrars. |
-| `RPT_PORT` | `5054` | TCP and UDP port inside the container. |
-| `RPT_CACHE_SIZE` | `10000` | Maximum number of directory entries. |
-| `RPT_WORKERS` | `32` | Maximum concurrent request workers per listener. |
+### `RPT_CONFIG_DIR`
 
-Dynaconf loads `settings.toml`, then an optional `.secrets.toml`, from the working
-directory. Environment variables beginning with `RPT_` override those files. Use
-two underscores for nested settings, as in `RPT_KAFKA__TOPIC`.
+**Optional:** Yes.
 
-To keep configuration on the host, mount a directory at `/config` and set
-`RPT_CONFIG_DIR=/config`. Files use plain TOML without environment sections. Keep
-credentials out of version control. See [directory behavior](protocol.md)
-for the remaining settings and Kafka replay details.
+**Default:** `.` (the process working directory).
 
+Selects the directory containing `settings.toml` and optional
+`.secrets.toml` files. Environment variables override the loaded files.
 
-## Full settings reference
+### `RPT_HOST`
 
-These are Python defaults. See [shared configuration](../../configuration.md) for
-file precedence and the two registrar image overrides. Rates are per minute;
-TTLs, deadlines, refresh, lifetime, skew, and timeouts are seconds. Sizes count
-entries except HTTP body size, which counts bytes. Empty strings mean unset.
+**Optional:** Yes.
 
-| Environment variable | Python default |
-| --- | --- |
-| `RPT_HOST` | `'0.0.0.0'` |
-| `RPT_PORT` | `5054` |
-| `RPT_DOMAIN` | `'nodes.example.org'` |
-| `RPT_CACHE_SIZE` | `10000` |
-| `RPT_MAX_LIFETIME` | `86400` |
-| `RPT_CLOCK_SKEW` | `30` |
-| `RPT_WORKERS` | `32` |
-| `RPT_KAFKA__BOOTSTRAP` | `'localhost:9092'` |
-| `RPT_KAFKA__TOPIC` | `'rpt.registrations'` |
-| `RPT_KAFKA__GROUP` | `'rpt-dns'` |
+**Default:** `0.0.0.0`.
 
-`MAX_LIFETIME` is the largest accepted registration lifetime, not the DNS answer
-TTL. `CLOCK_SKEW` allows an event timestamp up to 30 seconds ahead of the DNS host.
-Synchronize clocks rather than increasing this allowance to hide clock errors.
-`KAFKA.GROUP` supplies a consumer identifier; the service still explicitly assigns
-all partitions on every replica and does not divide the directory between replicas.
+Network interface address for the DNS directory listener.
+
+### `RPT_PORT`
+
+**Optional:** Yes.
+
+**Default:** `5054`.
+
+TCP and UDP port inside the container. It must be an integer from 1 through
+65535. To serve standard DNS externally, map the deployment's port 53 to this
+container port for both protocols.
+
+### `RPT_DOMAIN`
+
+**Optional:** No for service operation.
+
+**Default:** `nodes.example.org`.
+
+DNS domain served for repeater records. Set this to the network's node domain.
+The value must not be empty.
+
+### `RPT_CACHE_SIZE`
+
+**Optional:** Yes.
+
+**Default:** `10000` entries.
+
+Maximum number of current registrations retained by the in-memory directory.
+Choose capacity for the expected number of active repeaters.
+
+### `RPT_MAX_LIFETIME`
+
+**Optional:** Yes.
+
+**Default:** `86400` seconds.
+
+Largest Registration Lifetime the directory accepts from an event. This is not
+the DNS response TTL; it bounds input registration validity.
+
+### `RPT_CLOCK_SKEW`
+
+**Optional:** Yes.
+
+**Default:** `30` seconds.
+
+Maximum amount an event timestamp may be ahead of the DNS host clock. Keep
+host clocks synchronized rather than increasing this allowance to hide clock
+errors.
+
+### `RPT_WORKERS`
+
+**Optional:** Yes.
+
+**Default:** `32` workers.
+
+Maximum concurrent request workers for each listener process.
+
+## Kafka consumer
+
+### `RPT_KAFKA__BOOTSTRAP`
+
+**Optional:** Yes.
+
+**Default:** `localhost:9092`.
+
+Comma-separated Kafka bootstrap broker addresses used to connect to the
+registration event stream.
+
+### `RPT_KAFKA__TOPIC`
+
+**Optional:** No for service operation.
+
+**Default:** `rpt.registrations`.
+
+Topic consumed for registration events. It must be nonempty and use the
+compatible registration message format.
+
+### `RPT_KAFKA__GROUP`
+
+**Optional:** Yes.
+
+**Default:** `rpt-dns`.
+
+Consumer group identifier used when connecting to Kafka. The directory
+explicitly assigns every partition on each replica rather than splitting
+partitions between replicas.
+
+### `RPT_KAFKA__SECURITY_PROTOCOL`
+
+**Optional:** Yes.
+
+**Default:** Empty (plaintext Kafka transport).
+
+Enables Kafka connection security when set. The supported secure mode is
+`SASL_SSL`; set the SASL credentials and CA location below with it.
+
+### `RPT_KAFKA__SASL_MECHANISM`
+
+**Optional:** Yes; required when Kafka SASL/TLS is enabled.
+
+**Default:** Empty.
+
+SASL authentication mechanism. The supported value is `SCRAM-SHA-512`.
+
+### `RPT_KAFKA__SASL_USERNAME`
+
+**Optional:** Yes; required when Kafka SASL/TLS is enabled.
+
+**Default:** Empty.
+
+Username used to authenticate to Kafka. Store credentials using deployment
+secret storage.
+
+### `RPT_KAFKA__SASL_PASSWORD`
+
+**Optional:** Yes; required when Kafka SASL/TLS is enabled.
+
+**Default:** Empty.
+
+Password used to authenticate to Kafka. Do not commit this value.
+
+### `RPT_KAFKA__SSL_CA_LOCATION`
+
+**Optional:** Yes; required when Kafka SASL/TLS is enabled.
+
+**Default:** Empty.
+
+Path to the CA certificate used to verify Kafka broker certificates. Use an
+absolute path for a mounted certificate.
+
+When `RPT_KAFKA__SECURITY_PROTOCOL` is nonempty, the registrar requires the
+supported `SASL_SSL` protocol, `SCRAM-SHA-512`, a username, password, and CA
+certificate path. Kafka bootstrap addresses and topic must be reachable and
+available to the directory.

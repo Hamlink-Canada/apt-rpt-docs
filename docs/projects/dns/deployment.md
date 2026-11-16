@@ -3,8 +3,9 @@
 ## Run the service
 
 Choose a versioned image from `ghcr.io/hamlink-canada/register-dns_server` when a release
-is available. To run this checkout before an image is published, follow
-[Build an image](#build-an-image) and use `rpt-dnsserver:local` below.
+is available. To run this checkout before an image is published, follow the
+[development image-build instructions](development.md#build-an-image) and use
+`rpt-dnsserver:local` below.
 
 Replace the broker address and node domain with your own:
 
@@ -27,19 +28,3 @@ The example listens on host port 5054 so you can try it without replacing an exi
 DNS server. To serve standard DNS traffic, publish host port 53 to container port
 5054 for both UDP and TCP. Configure your resolver to send queries for the chosen
 node domain to this service.
-
-## Build an image
-
-From the service repository checkout, with Docker Buildx and Python 3.13+ installed:
-
-```sh
-PROTOBUF_REV=$(python3 scripts/dependency.py)
-docker buildx build --load \
-  --build-context "rpt_protobuf=https://github.com/Hamlink-Canada/rpt_protobuf.git#${PROTOBUF_REV}" \
-  --tag rpt-dnsserver:local .
-```
-
-This fetches the public protobuf dependency from its `main` branch. CI resolves that
-branch once per run and uses the same revision for its test and image jobs.
-The image runs as UID/GID 10001 and starts `rpt-dns`. Configuration files mounted into
-the container must be readable by that user.

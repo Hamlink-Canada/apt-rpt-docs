@@ -20,8 +20,8 @@ restrict other access using the file ownership and permissions on your host.
 ## Run the service
 
 Choose a versioned image from `ghcr.io/hamlink-canada/register-pyhttp` when a release
-is available. Before an image is published, [build this checkout](#build-an-image)
-and use `rpt-http-register:local`.
+is available. If no release is available, use a local image built using the
+[development instructions](development.md#build-an-image).
 
 With `credentials.csv` in the current directory, replace the broker address below:
 
@@ -60,18 +60,3 @@ proxy_hops = 1
 
 Replace the example CIDR with your proxy's actual address. See
 [HTTP compatibility](protocol.md) for the client contract.
-
-## Build an image
-
-From the service repository checkout, with Docker Buildx and Python 3.13+ installed:
-
-```sh
-PROTOBUF_REV=$(python3 scripts/dependency.py)
-docker buildx build --load \
-  --build-context "rpt_protobuf=https://github.com/Hamlink-Canada/rpt_protobuf.git#${PROTOBUF_REV}" \
-  --tag rpt-http-register:local .
-```
-
-The build uses the public protobuf library from its `main` branch. CI resolves that
-branch once per run and uses the same revision for its test and image jobs.
-The image starts the production WSGI server through `rpt-http`.

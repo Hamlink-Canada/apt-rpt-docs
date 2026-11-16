@@ -1,13 +1,37 @@
-# Configuration shared by the services
+# Shared registrar configuration
 
-All three services use Dynaconf with the network-neutral `RPT_` prefix. Configuration
-loads in this order: packaged Python defaults, `settings.toml`, optional
-`.secrets.toml`, then environment overrides. Nested values merge. There is no dotenv
-autoload and TOML files do not use `[production]` or other environment sections.
+The IAX registrar, HTTP registrar, and DNS directory use Dynaconf with the
+network-neutral `RPT_` prefix. Their individual configuration pages repeat
+every applicable shared setting with its default and purpose, alongside
+project-specific settings.
 
-Files are read from the process working directory unless `RPT_CONFIG_DIR` selects
-another directory. Container working directories are `/app`. For host-managed files,
-mount a directory read-only at `/config` and set `RPT_CONFIG_DIR=/config`.
+## Configuration file location
+
+### `RPT_CONFIG_DIR`
+
+**Optional:** Yes.
+
+**Default:** `.` (the process working directory).
+
+Selects the directory from which the service loads `settings.toml` and optional
+`.secrets.toml`. Container working directories are `/app`. For host-managed
+configuration, mount a directory read-only at `/config` and set
+`RPT_CONFIG_DIR=/config`. Selecting another directory means the image's
+`/app/settings.toml` is not loaded.
+
+## Shared loading behavior
+
+The services load packaged Python defaults, `settings.toml`, optional
+`.secrets.toml`, then environment overrides. Explicit application overrides
+have the highest precedence. Nested values merge. TOML files do not use
+`[production]` or other environment sections, and dotenv files are not loaded.
+
+### Nested environment variable names
+
+Two underscores separate nested keys. For example, `RPT_KAFKA__BOOTSTRAP`
+overrides `kafka.bootstrap`, and `RPT_GRPC__INSECURE=true` is parsed as a
+boolean. Lists can be supplied as TOML values, for example
+`RPT_HTTP__TRUSTED_PROXIES='["192.0.2.10/32"]'`.
 
 ```toml
 # settings.toml
@@ -16,12 +40,7 @@ bootstrap = "kafka.example.org:9092"
 topic = "rpt.registrations"
 ```
 
-The equivalent environment overrides are `RPT_KAFKA__BOOTSTRAP` and
-`RPT_KAFKA__TOPIC`. Two underscores separate nested keys. Dynaconf parses values as
-TOML types; for example `RPT_GRPC__INSECURE=true` is a boolean. A trusted-proxy list
-can be supplied as `RPT_HTTP__TRUSTED_PROXIES='["192.0.2.10/32"]'`.
-
-Relative configured paths resolve from the working directory, not necessarily the
+Relative configured paths resolve from the process working directory, not the
 configuration file's directory. Use absolute paths for mounted credentials and
 certificates. `.secrets.toml` and real credential files must stay out of Git.
 
@@ -29,9 +48,7 @@ certificates. `.secrets.toml` and real credential files must stay out of Git.
 
 Registrar images include `/app/settings.toml`, setting `server_id="registrar-1"`
 and `auth.file="/run/secrets/credentials.csv"`. The Python defaults are
-`server_id="registration"` and `auth.file="credentials.csv"`. Selecting another
-`RPT_CONFIG_DIR` stops loading `/app/settings.toml`, so explicitly set these values
-in your own files or environment. Give each registrar an identifiable server ID.
-
-The project configuration pages list the applicable environment variables and
-Python defaults. Mounts must be readable by UID/GID 10001.
+`server_id="registration"` and `auth.file="credentials.csv"`. Configure these
+values explicitly when selecting a different `RPT_CONFIG_DIR`, and give each
+registrar instance an identifiable server ID. Mount secret files so they are
+readable by UID/GID 10001.

@@ -1,7 +1,7 @@
 # System architecture
 
 Apt-RPT's documentation covers three cooperating system areas. **Portal** is
-the human-facing management plane for Sites, Repeaters, and Entities.
+the human-facing management plane for Sites, Repeaters, and Organisations.
 **Registration** authenticates nodes and publishes their observed endpoints.
 **Discovery** helps clients find currently reachable repeaters. A network may
 deploy each area on its own schedule.
@@ -10,7 +10,7 @@ deploy each area on its own schedule.
 flowchart LR
   User[Network administrator] --> PortalUI[Portal frontend]
   PortalUI -->|OIDC bearer token| PortalAPI[Portal backend]
-  PortalAPI --> PortalDB[(Portal data and shared entities)]
+  PortalAPI --> PortalDB[(Portal data and shared Organisations)]
   Auth[Central Credential System] -->|read credential| PortalDB
 
   Node[Repeater node] -->|HTTPS| HTTP[HTTP registrar]
@@ -40,7 +40,7 @@ undecided.
 
 ## Project guides
 
-- [Portal overview](portal/index.md), [backend](projects/portal/backend.md), and [frontend](projects/portal/frontend.md)
+- [Portal overview](portal/index.md), [backend](projects/portal/backend/index.md), and [frontend](projects/portal/frontend/index.md)
 - [DNS directory](projects/dns/index.md)
 - [HTTP registrar](projects/http/index.md)
 - [IAX registrar](projects/iax/index.md)

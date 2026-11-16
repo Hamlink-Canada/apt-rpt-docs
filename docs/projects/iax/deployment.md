@@ -21,8 +21,8 @@ so that this user can read it while access by other users is restricted.
 ## Run the service
 
 Choose a versioned image from `ghcr.io/hamlink-canada/register-pyiax` when a release
-is available. Before an image is published, [build this checkout](#build-an-image)
-and use `rpt-iax-register:local`.
+is available. If no release is available, use a local image built using the
+[development instructions](development.md#build-an-image).
 
 This Linux example uses host networking to preserve the client's source address.
 With `credentials.csv` in the current directory, replace the broker address below:
@@ -71,18 +71,3 @@ listed proxy hosts. Proxy mode is disabled by default, requires a nonempty IPv4 
 allowlist, and requires a valid PROXY header on every datagram. Do not send raw IAX
 traffic to this listener while proxy mode is enabled. See [configuration](configuration.md)
 for the setting details.
-
-## Build an image
-
-From the service repository checkout, with Docker Buildx and Python 3.13+ installed:
-
-```sh
-PROTOBUF_REV=$(python3 scripts/dependency.py)
-docker buildx build --load \
-  --build-context "rpt_protobuf=https://github.com/Hamlink-Canada/rpt_protobuf.git#${PROTOBUF_REV}" \
-  --tag rpt-iax-register:local .
-```
-
-The build fetches the public protobuf library from its `main` branch. CI resolves
-that branch once per run and uses the same revision for its test and image jobs.
-The image starts `rpt-iax`.

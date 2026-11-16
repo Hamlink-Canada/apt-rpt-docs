@@ -9,8 +9,8 @@ Database models live in `rpt_common.models`; migrations remain in
 `rpt_common.migrations`. Other shared Python modules can be added alongside these
 packages.
 
-Start with [the model](model.md), [migrations](migrations.md), and
-[development](development.md). Operator command and Job examples are maintained in
+Start with [the model](model.md), [migrations](migrations.md), [development](development.md),
+and [troubleshooting](troubleshooting.md). Operator command and Job examples are maintained in
 the [library README](https://github.com/Hamlink-Canada/pyCommon#readme) and Central Auth
 README. The package is available from Git `main`; follow the library README for
 installation and dependency pinning.
