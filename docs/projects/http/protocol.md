@@ -1,9 +1,5 @@
 # AllStarLink HTTP registration compatibility
 
-Reviewed `res/res_rpt_http_registrations.c` from AllStarLink/app_rpt on 2026-11-10,
-source blob `c995988cb81b823a6d725aadd3ea160b15097a21`:
-https://github.com/AllStarLink/app_rpt/blob/master/res/res_rpt_http_registrations.c
-
 The endpoint retains the client's JSON shape and success detection. Tests cover
 omitted/explicit ports, authentication rejection, validation, proxy trust, and failures.
 The default port when omitted is IAX's 4569. The client requires external HTTPS;
