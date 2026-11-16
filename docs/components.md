@@ -40,7 +40,7 @@ undecided.
 
 ## Project guides
 
-- [Portal overview](portal/index.md), [backend](projects/portal/backend.md), and [frontend](projects/portal/frontend.md)
+- [Portal overview](portal/index.md), [backend](projects/portal/backend/index.md), and [frontend](projects/portal/frontend/index.md)
 - [DNS directory](projects/dns/index.md)
 - [HTTP registrar](projects/http/index.md)
 - [IAX registrar](projects/iax/index.md)
