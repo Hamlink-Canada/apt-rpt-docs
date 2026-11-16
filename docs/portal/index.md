@@ -48,8 +48,8 @@ are the shared `pyCommon` models and the registration services.
 
 ## Guides
 
-- [Portal backend and data setup](../projects/portal/backend.md)
-- [Portal frontend setup](../projects/portal/frontend.md)
+- [Portal backend overview](../projects/portal/backend/index.md) and [backend deployment](../projects/portal/backend/deployment.md)
+- [Portal frontend overview](../projects/portal/frontend/index.md) and [frontend deployment](../projects/portal/frontend/deployment.md)
 - [Network architecture](../architecture.md)
 - [Shared authentication model](../authentication.md)
 - [Glossary](../glossary.md)
