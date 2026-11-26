@@ -1,0 +1,120 @@
+site_name: Apt-RPT Repeater Network
+site_url: https://hamlink-canada.github.io/apt-rpt-docs/
+repo_url: https://github.com/Hamlink-Canada/apt-rpt-docs
+edit_uri: edit/main/docs/
+site_description: Start, deploy, and operate Apt-RPT repeater network systems
+theme:
+  variant: modern
+  palette:
+    - scheme: slate
+      toggle:
+        icon: lucide/moon
+        name: Switch to light mode
+    - scheme: default
+      toggle:
+        icon: lucide/sun
+        name: Switch to dark mode
+extra_javascript:
+  - javascripts/sidebar-accordion.js
+plugins:
+  - search
+markdown_extensions:
+  - tables
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - admonition
+validation:
+  invalid_links: true
+  invalid_link_anchors: true
+nav:
+  - Start: index.md
+  - Portal:
+      - Overview: portal/index.md
+      - Backend:
+          - Overview: projects/portal/backend/index.md
+          - Configuration: projects/portal/backend/configuration.md
+          - Operations: projects/portal/backend/operations.md
+      - Frontend:
+          - Overview: projects/portal/frontend/index.md
+          - Configuration: projects/portal/frontend/configuration.md
+          - Operations: projects/portal/frontend/operations.md
+  - Registration:
+      - IAX registration:
+          - Overview: projects/iax/index.md
+          - Protocol: projects/iax/protocol.md
+          - Authentication and limits: projects/iax/authentication.md
+          - Configuration: projects/iax/configuration.md
+          - Operations: projects/iax/operations.md
+      - HTTP registration:
+          - Overview: projects/http/index.md
+          - Protocol: projects/http/protocol.md
+          - Authentication and limits: projects/http/authentication.md
+          - Configuration: projects/http/configuration.md
+          - Operations: projects/http/operations.md
+      - Central Credential System:
+          - Overview: projects/central-auth/index.md
+          - Configuration: projects/central-auth/configuration.md
+          - Operations and health: projects/central-auth/operations.md
+          - Backend modules: projects/central-auth/backends.md
+      - Shared data and protocol:
+          - Python models: projects/common/index.md
+          - Credential model: projects/common/model.md
+          - Migrations: projects/common/migrations.md
+  - Protobuf:
+      - Overview: projects/protobuf/index.md
+      - Configuration: projects/protobuf/configuration.md
+      - Deployment: projects/protobuf/deployment.md
+      - Operations: projects/protobuf/operations.md
+      - Development: projects/protobuf/development.md
+      - Troubleshooting: projects/protobuf/troubleshooting.md
+  - Discovery:
+      - Overview: discovery/index.md
+      - DNS directory:
+          - Overview: projects/dns/index.md
+          - Configuration: projects/dns/configuration.md
+          - Operations: projects/dns/operations.md
+          - Protocol: projects/dns/protocol.md
+  - Deployment:
+      - Deployment plan: getting-started.md
+      - Portal backend: projects/portal/backend/deployment.md
+      - Portal frontend: projects/portal/frontend/deployment.md
+      - IAX registrar: projects/iax/deployment.md
+      - HTTP registrar: projects/http/deployment.md
+      - DNS directory: projects/dns/deployment.md
+      - Central Credential System: projects/central-auth/deployment.md
+  - Development:
+      - Portal:
+          - Portal backend: projects/portal/backend/development.md
+          - Portal frontend: projects/portal/frontend/development.md
+      - Registration:
+          - IAX registrar: projects/iax/development.md
+          - HTTP registrar: projects/http/development.md
+          - Central Credential System: projects/central-auth/development.md
+          - Shared Python models: projects/common/development.md
+      - Discovery:
+          - DNS directory: projects/dns/development.md
+  - Troubleshooting:
+      - Overview: troubleshooting/index.md
+      - Portal:
+          - Portal backend: projects/portal/backend/troubleshooting.md
+          - Portal frontend: projects/portal/frontend/troubleshooting.md
+      - Registration:
+          - IAX registrar: projects/iax/troubleshooting.md
+          - HTTP registrar: projects/http/troubleshooting.md
+          - Central Credential System: projects/central-auth/troubleshooting.md
+          - Shared Python models: projects/common/troubleshooting.md
+      - Discovery:
+          - DNS directory: projects/dns/troubleshooting.md
+  - Reference:
+      - System architecture: components.md
+      - Shared configuration: configuration.md
+      - Optional OpenTelemetry: observability.md
+      - Authentication: authentication.md
+      - Glossary: glossary.md
+      - Current shared decisions: decisions.md
+      - Documentation guide: guide.md
+      - Documentation and publishing: maintainers/documentation.md
+      - Repository names and images: maintainers/repository-names.md
