@@ -18,8 +18,11 @@ including the credentials that registration systems use.
 
 The backend loads Site Codes from its bundled mapping unless
 `PORTAL_SITE_CODES_FILE` points to a deployment-managed replacement. Site ID
-reservations remain allocated after Site deletion. An operator can release a
-reservation only after removing or moving the Site's Repeaters:
+and Site Code are separate values: a system administrator may assign any valid,
+unreserved five-digit Site ID, and its first two digits do not change the
+Site's country or Site Code. Reservations remain allocated after Site deletion.
+An operator can release a reservation only after removing or moving the Site's
+Repeaters:
 
 ```sh
 portal-admin clear-site-id 12345

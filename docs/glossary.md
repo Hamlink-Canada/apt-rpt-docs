@@ -91,10 +91,17 @@ secrets.
 
 A physical repeater location managed in Portal.
 
-## Site ID / site code
+## Site Code
 
-The location identifier assigned to a Site. In short numbering mode, it is
-also the Node ID of the Site's single Repeater.
+A country-mapped code that identifies a Site's allocation region. It is stored
+separately from the Site ID and does not determine the Site's country.
+
+## Site ID
+
+A globally unique five-digit identifier assigned to a physical Site for
+repeater numbering. In short numbering mode, it is also the Node ID of the
+Site's single Repeater. An administrator-assigned Site ID does not determine
+the Site's country or Site Code.
 
 ## website
 
