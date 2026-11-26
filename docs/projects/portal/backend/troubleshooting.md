@@ -38,6 +38,9 @@ Never paste bearer tokens into shared logs or issue reports.
 - A Site ID remains reserved after deleting its Site. Move or remove the
   attached Repeaters before releasing the reservation with
   `portal-admin clear-site-id <site-id>`.
+- An administrator-assigned Site ID can have a different two-digit prefix
+  from the Site Code. The Site's country comes from its location, not the Site
+  ID prefix.
 - If a Site Code is absent or incorrect, check whether
   `PORTAL_SITE_CODES_FILE` points to the intended mapping. An unset value uses
   the mapping bundled with the backend.
