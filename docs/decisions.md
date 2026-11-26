@@ -28,9 +28,11 @@ and remotes are deferred until the local project structure is reviewed.
 
 ## Domain and identity
 
-- A physical **Site** has a **Site ID** or site code. A **Node ID** is the
-  numeric identity used for registration. Short numbering may use the Site ID
-  itself as the single repeater's Node ID.
+- A physical **Site** has a country-mapped **Site Code** and a globally unique
+  five-digit **Site ID**. The Site Code and Site ID are stored independently;
+  an administrator-assigned Site ID need not start with the Site Code. A
+  **Node ID** is the numeric identity used for registration. Short numbering
+  may use the Site ID itself as the single Repeater's Node ID.
 - **Registration Lifetime** is configured for DNS validity and derived current
   registration freshness. **Refresh Interval** is how often a node resends its
   details.
@@ -38,8 +40,11 @@ and remotes are deferred until the local project structure is reviewed.
   repeaters and is a distinct concept.
 - A Site location starts with a Maidenhead locator of at least four characters.
   Optional coordinates may refine the point if they remain within that locator.
-  Site IDs use a country-based Site Code plus a locally allocated number;
-  deleted IDs stay reserved unless an operator explicitly releases them.
+  Generated Site IDs use a country-based Site Code plus a locally allocated
+  number. System administrators may assign any valid, unreserved five-digit
+  Site ID. The Site's country and Site Code remain based on its location and
+  selected mapping code. Deleted IDs stay reserved unless an operator
+  explicitly releases them.
 - A Site may use a short Node ID for one Repeater or extended numbering for up
   to ten Repeaters, using suffixes `0` through `9`. Changing numbering may
   change an existing Repeater's Node ID, so its owner must update the device.
